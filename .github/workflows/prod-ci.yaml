@@ -1,0 +1,19 @@
+name: Prod CI
+
+on:
+    workflow_call: 
+    pull_request:
+        branches: [ main ]
+
+permissions:
+    contents: read
+    id-token: write
+
+jobs:
+    job1:
+      name: Job 1
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
