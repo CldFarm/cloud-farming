@@ -1,0 +1,52 @@
+Table PlotType {
+  PlotTypeID serial [primary key]
+  PlotTypeName varchar
+  PlotSize numeric
+  DefaultConfigID integer
+}
+
+Table Plot {
+  PlotID serial [primary key]
+  PlotName varchar
+  Description varchar
+  AccountID integer
+  GrowZoneID integer
+  PlotTypeID integer
+  ConfigID integer
+}
+
+Table Config {
+  ConfigID serial [primary key]
+  Description varchar
+  AccountID integer
+  FertalizerTypeID integer
+  WaterPerHour numeric
+}
+
+Table FertalizerType {
+  FertalizerTypeID serial [primary key]
+  FertalizerType varchar
+}
+
+Table Region {
+  RegionID serial [primary key]
+  RegionName varchar
+}
+
+Table GrowZone {
+  GrowZoneID serial [primary key]
+  GrowZoneName varchar
+  RegionID integer
+}
+
+Ref: Plot.PlotTypeID > PlotType.PlotTypeID
+
+Ref: Plot.ConfigID > Config.ConfigID
+
+Ref: FertalizerType.FertalizerTypeID > Config.FertalizerTypeID
+
+Ref: PlotType.DefaultConfigID - Config.ConfigID
+
+Ref: GrowZone.GrowZoneID < Plot.GrowZoneID
+
+Ref: GrowZone.RegionID > Region.RegionID
