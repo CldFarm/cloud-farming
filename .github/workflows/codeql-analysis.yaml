@@ -37,11 +37,11 @@ jobs:
 
     - name: Build API
       working-directory: ./apps/api
-      run: ./gredlew -q build
+      run: ./gradlew -q build
     
     - name: Build API
       working-directory: ./apps/cli
-      run: ./gredlew -q build
+      run: ./gradlew -q build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
