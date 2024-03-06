@@ -30,7 +30,7 @@ Table Plot {
   GrowZoneID integer
   PlotTypeID integer
   ConfigID integer
-  CreationDate timestamp
+  CreatedAt timestamp
   Terminated boolean
 }
 
