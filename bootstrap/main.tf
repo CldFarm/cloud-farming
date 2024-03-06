@@ -63,7 +63,7 @@ locals {
           "Action" : "sts:AssumeRoleWithWebIdentity",
           "Condition" : {
             "StringEquals" : {
-              "token.actions.githubusercontent.com:sub" : "repo:CrafDb-Team/crafdb:ref:refs/heads/*",
+              "token.actions.githubusercontent.com:sub" : "repo:CldFarm/cloud-farming:ref:refs/heads/*",
               "token.actions.githubusercontent.com:aud" : "sts.amazonaws.com"
             }
           }
