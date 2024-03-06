@@ -2,7 +2,24 @@ Table PlotType {
   PlotTypeID serial [primary key]
   PlotTypeName varchar
   PlotSize numeric
+  ProduceID integer
   DefaultConfigID integer
+}
+
+Table Produce {
+  ProduceID serial [primary key]
+  ProduceName varchar
+  ProduceTypeID integer
+}
+
+Table ProduceType {
+  ProduceTypeID serial [primary key]
+  ProduceType varchar
+}
+
+Table Account {
+  AccountID serial [primary key]
+  AccountUID varchar
 }
 
 Table Plot {
@@ -13,10 +30,13 @@ Table Plot {
   GrowZoneID integer
   PlotTypeID integer
   ConfigID integer
+  CreationDate timestamp
+  Terminated boolean
 }
 
 Table Config {
   ConfigID serial [primary key]
+  ConfigName varchar
   Description varchar
   AccountID integer
   FertalizerTypeID integer
@@ -39,14 +59,33 @@ Table GrowZone {
   RegionID integer
 }
 
+Table PlotData {
+  PlotDataID serial [primary key]
+  PlotID integer
+  GrowthPercent numeric
+  Sunlight numeric
+  SoilMoisture numeric
+  TimeTaken timestamp
+}
+
 Ref: Plot.PlotTypeID > PlotType.PlotTypeID
 
 Ref: Plot.ConfigID > Config.ConfigID
 
-Ref: FertalizerType.FertalizerTypeID > Config.FertalizerTypeID
+Ref: FertalizerType.FertalizerTypeID < Config.FertalizerTypeID
 
 Ref: PlotType.DefaultConfigID - Config.ConfigID
 
 Ref: GrowZone.GrowZoneID < Plot.GrowZoneID
 
 Ref: GrowZone.RegionID > Region.RegionID
+
+Ref: Account.AccountID < Plot.AccountID
+
+Ref: Account.AccountID < Config.AccountID
+
+Ref: PlotType.ProduceID > Produce.ProduceID
+
+Ref: Produce.ProduceTypeID > ProduceType.ProduceTypeID
+
+Ref: PlotData.PlotID > Plot.PlotID
