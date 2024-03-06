@@ -26,3 +26,6 @@ replay_pid*
 
 # vscode config
 .vscode/
+.idea/cloud-farming.iml
+.idea/modules.xml
+.idea/vcs.xml
