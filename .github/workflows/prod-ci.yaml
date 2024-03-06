@@ -36,8 +36,12 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: cd ${{env.terraform_directory}} && terraform init
+        working-directory: ${{env.terraform_directory}}
+        run: |
+          terraform init -input=false -upgrade=true
 
       - name: Terraform Plan
         id: plan
-        run: cd ${{env.terraform_directory}} && terraform plan
+        working-directory: ${{env.terraform_directory}}
+        run: |
+          terraform plan -input=false -lock=true -lock-timeout=30m -refresh=true
