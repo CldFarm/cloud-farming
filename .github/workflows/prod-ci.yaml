@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 env:
-  terraform_directory: 'terraform'
+  terraform_directory: './terraform'
 
 jobs:
   terraform-checks:
@@ -24,6 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: terraform-checks
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@main
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@main
         with:
@@ -33,8 +36,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        working-directory: ${{env.terraform_directory}}
-        run: terraform init
+        run: cd ${{env.terraform_directory}} && terraform init
 
       - name: Terraform Plan
         id: plan
