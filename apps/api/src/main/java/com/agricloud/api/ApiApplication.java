@@ -1,4 +1,4 @@
-package com.aricloud.api;
+package com.agricloud.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

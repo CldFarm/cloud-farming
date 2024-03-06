@@ -37,11 +37,11 @@ jobs:
 
     - name: Build API
       working-directory: ./apps/api
-      run: ./gradlew -q build
+      run: ./mvnw spring-boot:build
     
     - name: Build CPI
       working-directory: ./apps/cli
-      run: ./gradlew -q build
+      run: ./mvnw spring-boot:build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
