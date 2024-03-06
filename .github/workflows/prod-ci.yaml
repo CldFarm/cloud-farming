@@ -32,11 +32,9 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
       - name: Terraform Init
-        working-directory: ${{env.terraform_directory}}
         id: init
-        run: terraform init
+        run: cd ${{env.terraform_directory}} && terraform init
 
       - name: Terraform Plan
-        working-directory: ${{env.terraform_directory}}
         id: plan
-        run: terraform plan
+        run: cd ${{env.terraform_directory}} && terraform plan
