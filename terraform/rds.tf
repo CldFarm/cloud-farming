@@ -2,7 +2,7 @@ module "rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "6.5.2"
 
-  identifier = "beanFarmDB"
+  identifier = "beanfarmdb"
 
   family               = "postgres16"
   major_engine_version = "16"
@@ -20,7 +20,7 @@ module "rds" {
   vpc_security_group_ids = [module.vpc.default_security_group_id]
   publicly_accessible    = true
 
-  db_name                     = "beanFarmDB"
+  db_name                     = "beanfarmdb"
   username                    = "dbadmin"
   port                        = "5432"
   manage_master_user_password = true
