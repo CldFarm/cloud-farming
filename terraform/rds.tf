@@ -16,7 +16,7 @@ module "rds" {
   skip_final_snapshot = true
 
   create_db_subnet_group = false
-  subnet_ids             = module.vpc.database_subnet_arns
+  subnet_ids             = module.vpc.private_subnet_arns
   vpc_security_group_ids = [module.vpc.default_security_group_id]
   publicly_accessible    = true
 
