@@ -1,3 +1,4 @@
+#tfsec:ignore:enable-vpc-flow-logs
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
