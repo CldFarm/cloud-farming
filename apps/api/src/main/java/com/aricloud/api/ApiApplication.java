@@ -9,17 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 public class ApiApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 	}
-	@RestController
-	public static class MathController {
-
-		@GetMapping("/add")
-		public int addNumbers(@RequestParam int num1, @RequestParam int num2) {
-			return num1 + num2;
-		}
-	}
-
 }
