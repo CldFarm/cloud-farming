@@ -39,13 +39,13 @@ Table Config {
   ConfigName varchar
   Description varchar
   AccountID integer
-  FertalizerTypeID integer
+  FertilizerTypeID integer
   WaterPerHour numeric
 }
 
-Table FertalizerType {
-  FertalizerTypeID serial [primary key]
-  FertalizerType varchar
+Table FertilizerType {
+  FertilizerTypeID serial [primary key]
+  FertilizerType varchar
 }
 
 Table Region {
@@ -72,7 +72,7 @@ Ref: Plot.PlotTypeID > PlotType.PlotTypeID
 
 Ref: Plot.ConfigID > Config.ConfigID
 
-Ref: FertalizerType.FertalizerTypeID < Config.FertalizerTypeID
+Ref: FertilizerType.FertilizerTypeID < Config.FertilizerTypeID
 
 Ref: PlotType.DefaultConfigID - Config.ConfigID
 

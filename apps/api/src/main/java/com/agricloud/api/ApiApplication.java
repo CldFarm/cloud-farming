@@ -1,9 +1,11 @@
-package com.aricloud.api;
+package com.agricloud.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan("com.agricloud")
 public class ApiApplication {
 
 	public static void main(String[] args) {
