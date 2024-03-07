@@ -4,11 +4,11 @@ on:
   push:
     branches: [ main ]
     paths-ignore:
-      - terraform/**
+      - 'terraform/**'
   pull_request:
     branches: [ main ]
     paths-ignore:
-      - terraform/**
+      - 'terraform/**'
 
 jobs:
   analyze:
