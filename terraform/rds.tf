@@ -11,13 +11,12 @@ module "rds" {
 
   instance_class      = "db.t3.micro"
   create_db_instance  = true
-  allocated_storage   = 5
+  allocated_storage   = 10
   deletion_protection = false
   skip_final_snapshot = true
 
-  create_db_subnet_group = true
-  subnet_ids             = module.vpc.private_subnet_arns
-  vpc_security_group_ids = [module.vpc.default_security_group_id]
+  db_subnet_group_name = module.vpc.database_subnet_group_name
+  vpc_security_group_ids = [aws_security_group.rds.id]
   publicly_accessible    = true
 
   db_name                     = "beanfarmdb"
