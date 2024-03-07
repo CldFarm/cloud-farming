@@ -3,12 +3,8 @@ name: "CodeQL"
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - 'terraform/**'
   pull_request:
     branches: [ main ]
-    paths-ignore:
-      - 'terraform/**'
 
 jobs:
   analyze:
