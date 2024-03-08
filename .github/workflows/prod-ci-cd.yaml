@@ -12,6 +12,10 @@ env:
   terraform_directory: './terraform'
 
 jobs:
+  prod-ci:
+    name: "Prod CI"
+    uses: ./.github/workflows/prod-ci.yaml
+
   terraform-apply:
     name: "Terraform apply"
     runs-on: ubuntu-latest
