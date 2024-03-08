@@ -22,7 +22,9 @@ jobs:
     name: "Terraform plan"
     needs: terraform-checks
     uses: ./.github/workflows/terraform-ci.yaml
+    secrets: inherit
 
   test-database-migration:
     name: "Liquibase checks"
     uses: ./.github/workflows/liquibase-ci.yaml
+    secrets: inherit
