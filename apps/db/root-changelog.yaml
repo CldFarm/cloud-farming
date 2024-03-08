@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - includeAll:
+      path: ./tables
+  
+  - include:
+      file: ./constraints/ForeignKeys.sql
