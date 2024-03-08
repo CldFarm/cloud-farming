@@ -16,6 +16,7 @@ jobs:
   prod-ci:
     name: "Prod CI"
     uses: ./.github/workflows/prod-ci.yaml
+    secrets: inherit
 
   terraform-apply:
     name: "Terraform apply"
