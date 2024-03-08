@@ -22,7 +22,9 @@ jobs:
         uses: hashicorp/setup-terraform@v3.0.0
 
       - name: "Terraform fmt"
-        run: cd ${{env.terraform_directory}} && terraform fmt -check --recursive .
+        working-directory: ${{env.terraform_directory}}
+        run: |
+          terraform fmt -check --recursive .
         continue-on-error: false
 
       # - name: "Terraform security check"
@@ -36,4 +38,6 @@ jobs:
           tflint_version: latest
       
       - name: "Run tflint"
-        run: cd ${{env.terraform_directory}} && tflint -f compact
+        working-directory: ${{env.terraform_directory}}
+        run: |
+          tflint -f compact
