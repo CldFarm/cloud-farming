@@ -1,6 +1,21 @@
 databaseChangeLog:
-  - includeAll:
-      path: ./tables
-  
-  - include:
-      file: ./constraints/ForeignKeys.sql
+    - include:
+        file: ./tables/Account.sql    
+    - include:
+        file: ./tables/Fertilizer.sql
+    - include:
+        file: ./tables/ProduceType.sql  
+    - include:
+        file: ./tables/Config.sql
+    - include:
+        file: ./tables/Produce.sql
+    - include:
+        file: ./tables/PlotType.sql
+    - include:
+        file: ./tables/Region.sql
+    - include:
+        file: ./tables/GrowZone.sql
+    - include:
+        file: ./tables/Plot.sql
+    - include:
+        file: ./tables/PlotData.sql

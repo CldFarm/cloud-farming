@@ -8,3 +8,7 @@ CREATE TABLE "PlotData" (
   "TimeTaken" timestamp NOT NULL
 );
 --rollback DROP TABLE "PlotData";
+
+--changeset sean.vanwyk:plotdata:2
+ALTER TABLE "PlotData" ADD CONSTRAINT "PlotData_PlotID_FK" FOREIGN KEY ("PlotID") REFERENCES "Plot" ("PlotID");
+--rollback ALTER TABLE "PlotData" DROP CONSTRAINT "PlotData_PlotID_FK";
