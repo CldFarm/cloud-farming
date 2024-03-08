@@ -39,14 +39,6 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
-    - name: Build API
-      working-directory: ./apps/api
-      run: ./gradlew -q build
-    
-    - name: Build CPI
-      working-directory: ./apps/cli
-      run: ./gradlew -q build
-
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
