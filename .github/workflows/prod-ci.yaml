@@ -1,7 +1,6 @@
-name: Production CI
+name: CI
 
 on:
-  workflow_call: 
   pull_request:
     branches: [ main ]
 
@@ -21,10 +20,10 @@ jobs:
   terraform-plan:
     name: "Terraform plan"
     needs: terraform-checks
-    uses: ./.github/workflows/terraform-ci.yaml
     secrets: inherit
+    uses: ./.github/workflows/terraform-ci.yaml
 
   test-database-migration:
     name: "Liquibase checks"
-    uses: ./.github/workflows/liquibase-ci.yaml
     secrets: inherit
+    uses: ./.github/workflows/liquibase-ci.yaml

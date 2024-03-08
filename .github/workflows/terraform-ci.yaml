@@ -6,6 +6,7 @@ on:
 permissions:
   checks: write
   contents: read
+  id-token: write
 
 env:
   terraform_directory: "./terraform"

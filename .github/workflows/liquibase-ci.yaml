@@ -4,8 +4,9 @@ on:
   workflow_call:
 
 permissions:
-  id-token: write
+  checks: write
   contents: read
+  id-token: write
 
 jobs:
   test_migrate_db:
@@ -36,7 +37,7 @@ jobs:
       - name: Perform migration test
         uses: liquibase-github-actions/validate@v4.26.0
         with:
-          changelogFile: "./apps/db/root-changelog.yaml"
+          changelogFile: "./root-changelog.yaml"
           url: "jdbc:postgresql://${{env.DB_ENDPOINT}}:5432/beanfarmdb"
           password: "${{env.DB_DETAILS_PASSWORD}}"
           username: "${{env.DB_DETAILS_USERNAME}}"
