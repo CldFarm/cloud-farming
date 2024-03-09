@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:fertilizer:1
 CREATE TABLE "FertilizerType" (
   "FertilizerTypeID" serial PRIMARY KEY,

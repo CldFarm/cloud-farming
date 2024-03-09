@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:growzone:1
 CREATE TABLE "GrowZone" (
   "GrowZoneID" serial PRIMARY KEY,
