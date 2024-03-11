@@ -32,4 +32,6 @@ jobs:
   app-ci:
     name: "Application checks"
     secrets: inherit
+    permissions: 
+      security-events: write
     uses: ./.github/workflows/app-ci.yaml
