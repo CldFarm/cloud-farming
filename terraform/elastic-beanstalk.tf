@@ -14,7 +14,7 @@ resource "aws_iam_instance_profile" "beanstalk_ec2" {
 }
 
 resource "aws_s3_bucket" "beanstalk_bucket" {
-  bucket = "beanfarm-deploy-bucket"
+  bucket        = "beanfarm-deploy-bucket"
   force_destroy = true
 }
 
@@ -28,10 +28,10 @@ resource "aws_s3_object" "default_jar" {
 }
 
 resource "aws_elastic_beanstalk_application_version" "default" {
-  name = "default-app"
-  application = aws_elastic_beanstalk_application.api_app.name
-  bucket      = aws_s3_bucket.beanstalk_bucket.id
-  key         = aws_s3_object.default_jar.key
+  name         = "default-app"
+  application  = aws_elastic_beanstalk_application.api_app.name
+  bucket       = aws_s3_bucket.beanstalk_bucket.id
+  key          = aws_s3_object.default_jar.key
   force_delete = true
 }
 
