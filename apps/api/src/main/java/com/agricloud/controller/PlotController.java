@@ -8,6 +8,7 @@ import com.agricloud.response.GeneralResponse;
 import com.agricloud.service.PlotService;
 
 @RestController
+@RequestMapping("/plot")
 public class PlotController {
 
     @Autowired

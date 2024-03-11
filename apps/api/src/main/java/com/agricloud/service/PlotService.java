@@ -19,12 +19,22 @@ public class PlotService {
 
         if (plot != null) {
 
-            plotRepository.save(plot);
-            response.setStatus("Successfully saved pod");
-            response.setBody(response);
+            try {
+                
+                plotRepository.save(plot);
+                response.setStatus("Successfully saved pod");
+                response.setBody(response);
+
+            } catch (Exception e) {
+
+                response.setStatus("Error occured with saving pod");
+
+            }
 
         } else {
+
             response.setStatus("Pod cannot be null");
+            
         }
 
         return response;
