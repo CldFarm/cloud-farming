@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agricloud.response.GeneralResponse;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     
     @PostMapping("/login")
-    public String login(@RequestBody String body) {
-        return "NOT IMPLEMENTED";
+    public GeneralResponse login(@RequestBody String body) {
+        return new GeneralResponse("NOT IMPLEMENTED", null);
     }
 
 }
