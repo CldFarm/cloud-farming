@@ -10,22 +10,22 @@ public class InfoController {
     
     @GetMapping("/regions")
     public String regions () {
-        return new String();
+        return "NOT IMPLEMENTED";
     }
 
     @GetMapping("/gz")
     public String growZones () {
-        return new String();
+        return "NOT IMPLEMENTED";
     }
 
     @GetMapping("/fertilizers")
     public String fertilizers () {
-        return new String();
+        return "NOT IMPLEMENTED";
     }
 
     @GetMapping("/plot-types")
     public String plotTypes () {
-        return new String();
+        return "NOT IMPLEMENTED";
     }
 
 }
