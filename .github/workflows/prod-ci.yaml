@@ -9,6 +9,7 @@ permissions:
   checks: write
   contents: read
   id-token: write
+  security-events: write
 
 env:
   terraform_directory: './terraform'
@@ -32,6 +33,4 @@ jobs:
   app-ci:
     name: "Application checks"
     secrets: inherit
-    permissions: 
-      security-events: write
     uses: ./.github/workflows/app-ci.yaml
