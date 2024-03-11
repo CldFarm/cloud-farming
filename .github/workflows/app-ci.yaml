@@ -32,7 +32,7 @@ jobs:
       working-directory: ./apps/api
       run: ./gradlew -q build
     
-    - name: Build CPI
+    - name: Build CLI
       working-directory: ./apps/cli
       run: ./gradlew -q build
 
