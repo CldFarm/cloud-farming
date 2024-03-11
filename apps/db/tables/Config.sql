@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:config:1
 CREATE TABLE "Config" (
   "ConfigID" serial PRIMARY KEY,

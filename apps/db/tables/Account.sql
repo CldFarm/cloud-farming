@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:account:1
 CREATE TABLE "Account" (
   "AccountID" serial PRIMARY KEY,

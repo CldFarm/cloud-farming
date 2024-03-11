@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:plot:1
 CREATE TABLE "Plot" (
   "PlotID" serial PRIMARY KEY,

@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:produce:1
 CREATE TABLE "Produce" (
   "ProduceID" serial PRIMARY KEY,

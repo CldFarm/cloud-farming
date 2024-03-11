@@ -1,3 +1,5 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:plottype:1
 CREATE TABLE "PlotType" (
   "PlotTypeID" serial PRIMARY KEY,
