@@ -9,6 +9,7 @@ permissions:
   checks: write
   contents: read
   id-token: write
+  security-events: write
 
 env:
   terraform_directory: './terraform'
@@ -28,3 +29,8 @@ jobs:
     name: "Liquibase checks"
     secrets: inherit
     uses: ./.github/workflows/liquibase-ci.yaml
+
+  app-ci:
+    name: "Application checks"
+    secrets: inherit
+    uses: ./.github/workflows/app-ci.yaml
