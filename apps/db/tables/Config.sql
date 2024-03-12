@@ -18,3 +18,7 @@ ALTER TABLE "Config" ADD CONSTRAINT "Config_FertilizerTypeID_FK" FOREIGN KEY ("F
 --changeset sean.vanwyk:config:3
 ALTER TABLE "Config" ADD CONSTRAINT "Config_AccountID_FK" FOREIGN KEY ("AccountID") REFERENCES "Account" ("AccountID");
 --rollback ALTER TABLE "Config" DROP CONSTRAINT "Config_AccountID_FK";
+
+--changeset sean.vanwyk:config:4
+ALTER TABLE "Config" ADD CONSTRAINT "Config_PositiveWaterPerHour" CHECK ("WaterPerHour" >= 0);
+--rollback ALTER TABLE "Config" DROP CONSTRAINT "Config_PositiveWaterPerHour";
