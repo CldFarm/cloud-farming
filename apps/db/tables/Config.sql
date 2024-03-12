@@ -12,7 +12,7 @@ CREATE TABLE config (
 --rollback DROP TABLE config;
 
 --changeset sean.vanwyk:config:2
-ALTER TABLE config ADD CONSTRAINT "Config_FertilizerTypeID_FK" FOREIGN KEY (fertilizer_typeid) REFERENCES fertilizer_type (fertilizertypeid);
+ALTER TABLE config ADD CONSTRAINT "Config_FertilizerTypeID_FK" FOREIGN KEY (fertilizer_typeid) REFERENCES fertilizer_type (fertilizer_typeid);
 --rollback ALTER TABLE config DROP CONSTRAINT "Config_FertilizerTypeID_FK";
 
 --changeset sean.vanwyk:config:3

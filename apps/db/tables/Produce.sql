@@ -9,5 +9,5 @@ CREATE TABLE produce (
 -- rollback DROP TABLE produce;
 
 --changeset sean.vanwyk:produce:2
-ALTER TABLE produce ADD CONSTRAINT "Produce_ProduceTypeID_FK" FOREIGN KEY (produce_typeid) REFERENCES produce_type (producetypeid);
+ALTER TABLE produce ADD CONSTRAINT "Produce_ProduceTypeID_FK" FOREIGN KEY (produce_typeid) REFERENCES produce_type (produce_typeid);
 --rollback ALTER TABLE produce DROP CONSTRAINT "Produce_ProduceTypeID_FK";

@@ -15,7 +15,7 @@ CREATE TABLE plot (
 --rollback DROP TABLE plot;
 
 --changeset sean.vanwyk:plot:2
-ALTER TABLE plot ADD CONSTRAINT "Plot_PlotTypeID_FK" FOREIGN KEY (plottypeid) REFERENCES plot_type (plottypeid);
+ALTER TABLE plot ADD CONSTRAINT "Plot_PlotTypeID_FK" FOREIGN KEY (plot_typeid) REFERENCES plot_type (plot_typeid);
 --rollback ALTER TABLE plot DROP CONSTRAINT "Plot_PlotTypeID_FK";
 
 --changeset sean.vanwyk:plot:3
@@ -23,7 +23,7 @@ ALTER TABLE plot ADD CONSTRAINT "Plot_ConfigID_FK" FOREIGN KEY (configid) REFERE
 --rollback ALTER TABLE plot DROP CONSTRAINT "Plot_ConfigID_FK";
 
 --changeset sean.vanwyk:plot:4
-ALTER TABLE plot ADD CONSTRAINT "Plot_GrowZoneID_FK" FOREIGN KEY (growzoneid) REFERENCES grow_zone (growzoneid);
+ALTER TABLE plot ADD CONSTRAINT "Plot_GrowZoneID_FK" FOREIGN KEY (grow_zoneid) REFERENCES grow_zone (grow_zoneid);
 --rollback ALTER TABLE plot DROP CONSTRAINT "Plot_GrowZoneID_FK";
 
 --changeset sean.vanwyk:plot:5
