@@ -8,4 +8,4 @@ spring:
             client-secret: ${COGNITO_CLIENT_SECRET}
         provider:
           cognito:
-            issuer-uri: https://cognito-idp.af-south-1.amazonaws.com/af-south-1_KTd5Q14k0
+            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_dw3OkqpZT
