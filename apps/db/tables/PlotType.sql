@@ -17,3 +17,7 @@ ALTER TABLE "PlotType" ADD CONSTRAINT "PlotType_ProduceID_FK" FOREIGN KEY ("Prod
 --changeset sean.vanwyk:plottype:3
 ALTER TABLE "PlotType" ADD CONSTRAINT "PlotType_DefaultConfigID_FK" FOREIGN KEY ("DefaultConfigID") REFERENCES "Config" ("ConfigID");
 --rollback ALTER TABLE "Config" DROP CONSTRAINT "PlotType_DefaultConfigID_FK";
+
+--changeset sean.vanwyk:plottype:4
+ALTER TABLE "PlotType" ADD CONSTRAINT "PlotType_PositivePlotSize" CHECK ("PlotSize" > 0);
+--rollback ALTER TABLE "PlotType" DROP CONSTRAINT "PlotType_PositivePlotSize";
