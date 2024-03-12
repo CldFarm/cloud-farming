@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
 --changeset sean.vanwyk:account:1
-CREATE TABLE "Account" (
-  "AccountID" serial PRIMARY KEY,
-  "AccountUID" varchar NOT NULL
+CREATE TABLE account (
+  accountid serial PRIMARY KEY,
+  account_uid varchar NOT NULL
 );
---rollback DROP TABLE "Account";
+--rollback DROP TABLE account;
