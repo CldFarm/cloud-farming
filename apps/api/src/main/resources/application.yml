@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${COGNITO_CLIENT_ID}
+            client-secret: 1vlcd0rbadtg9huc02eqa42ve9rfr0hhijk53hj1if3338dcqtdi
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.af-south-1.amazonaws.com/af-south-1_KTd5Q14k0
