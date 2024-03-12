@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "plot")
+@Table(name = "Plot")
 @Data
 @NoArgsConstructor
 public class PlotModel {

@@ -41,4 +41,24 @@ public class PlotService {
 
     }
 
+    public GeneralResponse info (String plotName) {
+        
+        GeneralResponse response = new GeneralResponse();
+
+        try {
+                
+            // plotRepository.findById(plot);
+            response.setStatus("Successfully saved pod");
+            response.setBody(response);
+
+        } catch (Exception e) {
+
+            response.setStatus("Error occured while saving pod");
+
+        }
+
+        return response;
+
+    }
+
 }

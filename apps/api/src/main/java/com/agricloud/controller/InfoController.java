@@ -4,16 +4,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agricloud.response.GeneralResponse;
+import com.agricloud.service.InfoService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/info")
 public class InfoController {
     
+    @Autowired
+    private InfoService infoService;
+
     @GetMapping("/regions")
     public GeneralResponse regions () {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+        return infoService.getRegions();
     }
 
     @GetMapping("/gz")
