@@ -1,0 +1,72 @@
+name: Application CD
+
+on:
+  workflow_call: 
+
+permissions:
+  contents: write
+  security-events: write
+  id-token: write
+
+jobs:
+  # cli-release:
+  #   name: CLI Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout Repository
+  #     uses: actions/checkout@v4
+
+  #   - name: Setup Java JDK
+  #     uses: actions/setup-java@v4
+  #     with:
+  #       distribution: 'temurin'
+  #       java-version: '21'
+  #       java-package: jdk
+    
+  #   - name: Build CLI
+  #     working-directory: ./apps/cli
+  #     run: ./gradlew -q build
+
+  #   - name: Create Release
+  #     uses: softprops/action-gh-release@v2
+  #     if: startsWith(github.ref, 'refs/tags/')
+  #     with:
+  #       files: ./apps/cli/build/libs/api
+
+
+  api-deploy:
+    name: API Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{secrets.AWS_ASSUME_ROLE}}
+        aws-region: "eu-west-1"
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        java-package: jdk
+
+    - name: Build API
+      working-directory: ./apps/api
+      run: ./gradlew -q build
+
+    - name: Create ZIP Package
+      run: Compress-Archive -Path ./apps/api/build/libs/* -DestinationPath ./deploy_package.zip
+
+    - name: Upload API Package
+      run: aws s3 cp deploy_package.zip s3://beanfarm-deploy-bucket
+
+    - name: Create New API Version
+      run: aws elasticbeanstalk create-application-version --application-name api-app --source-bundle S3Bucket="beanfarm-deploy-bucket",S3Key="deploy_package.zip" --version-label "deploy-${{ github.sha }}" --description "commit-sha-${{ github.sha }}"
+
+    - name: Deploy API
+      run: aws elasticbeanstalk update-environment --environment-name api-env --version-label "deploy-${{ github.sha }}"

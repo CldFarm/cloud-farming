@@ -6,7 +6,7 @@ on:
 
 permissions:
   checks: write
-  contents: read
+  contents: write
   id-token: write
   security-events: write
 
@@ -30,3 +30,9 @@ jobs:
     needs: prod-ci
     secrets: inherit
     uses: ./.github/workflows/liquibase-cd.yaml  
+
+  app-deploy:
+    name: "Deploy/Release API and CLI"
+    needs: prod-ci
+    secrets: inherit
+    uses: ./.github/workflows/app-cd.yaml  

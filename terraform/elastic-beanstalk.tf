@@ -18,22 +18,22 @@ resource "aws_s3_bucket" "beanstalk_bucket" {
   force_destroy = true
 }
 
-resource "aws_s3_object" "default_jar" {
-  bucket = aws_s3_bucket.beanstalk_bucket.id
-  key    = "dummy_api.jar"
-  source = "dummy_api.jar"
-  acl    = "private"
+# resource "aws_s3_object" "default_jar" {
+#   bucket = aws_s3_bucket.beanstalk_bucket.id
+#   key    = "dummy_api.jar"
+#   source = "dummy_api.jar"
+#   acl    = "private"
 
-  depends_on = [aws_s3_bucket.beanstalk_bucket]
-}
+#   depends_on = [aws_s3_bucket.beanstalk_bucket]
+# }
 
-resource "aws_elastic_beanstalk_application_version" "default" {
-  name         = "default-app"
-  application  = aws_elastic_beanstalk_application.api_app.name
-  bucket       = aws_s3_bucket.beanstalk_bucket.id
-  key          = aws_s3_object.default_jar.key
-  force_delete = true
-}
+# resource "aws_elastic_beanstalk_application_version" "default" {
+#   name         = "default-app"
+#   application  = aws_elastic_beanstalk_application.api_app.name
+#   bucket       = aws_s3_bucket.beanstalk_bucket.id
+#   key          = aws_s3_object.default_jar.key
+#   force_delete = true
+# }
 
 resource "aws_elastic_beanstalk_application" "api_app" {
   name        = "api-app"
@@ -99,6 +99,6 @@ resource "aws_elastic_beanstalk_environment" "api_env" {
   }
 }
 
-output "elastic_beanstalk_app_url" {
-  value = "http://${aws_elastic_beanstalk_environment.api_env.cname}"
-}
+# output "elastic_beanstalk_app_url" {
+#   value = "http://${aws_elastic_beanstalk_environment.api_env.cname}"
+# }
