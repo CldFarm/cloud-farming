@@ -64,4 +64,4 @@ terraform.rc
 .idea/cloud-farming.iml
 .idea/modules.xml
 .idea/vcs.xml
-apps/api/src/main/resources/static/API.env
+*.env
