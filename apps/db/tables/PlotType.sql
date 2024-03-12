@@ -2,11 +2,11 @@
 
 --changeset sean.vanwyk:plottype:1
 CREATE TABLE plot_type (
-  plottypeid serial PRIMARY KEY,
+  plot_typeid serial PRIMARY KEY,
   plot_type_name varchar NOT NULL,
   plot_size numeric NOT NULL,
   produceid integer NOT NULL,
-  defaultconfigid integer NOT NULL
+  default_configid integer NOT NULL
 );
 -- rollback DROP TABLE plottype;
 
@@ -15,5 +15,5 @@ ALTER TABLE plot_type ADD CONSTRAINT "PlotType_ProduceID_FK" FOREIGN KEY (produc
 --rollback ALTER TABLE plottype DROP CONSTRAINT "PlotType_ProduceID_FK";
 
 --changeset sean.vanwyk:plottype:3
-ALTER TABLE plot_type ADD CONSTRAINT "PlotType_DefaultConfigID_FK" FOREIGN KEY (defaultconfigid) REFERENCES config (configid);
+ALTER TABLE plot_type ADD CONSTRAINT "PlotType_DefaultConfigID_FK" FOREIGN KEY (default_configid) REFERENCES config (configid);
 --rollback ALTER TABLE plottype DROP CONSTRAINT "PlotType_DefaultConfigID_FK";

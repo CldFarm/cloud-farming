@@ -6,13 +6,13 @@ CREATE TABLE config (
   config_name varchar NOT NULL,
   description varchar NOT NULL,
   accountid integer,
-  fertilizertypeid integer NOT NULL,
+  fertilizer_typeid integer NOT NULL,
   water_per_hour numeric NOT NULL
 );
 --rollback DROP TABLE config;
 
 --changeset sean.vanwyk:config:2
-ALTER TABLE config ADD CONSTRAINT "Config_FertilizerTypeID_FK" FOREIGN KEY (fertilizertypeid) REFERENCES fertilizer_type (fertilizertypeid);
+ALTER TABLE config ADD CONSTRAINT "Config_FertilizerTypeID_FK" FOREIGN KEY (fertilizer_typeid) REFERENCES fertilizer_type (fertilizertypeid);
 --rollback ALTER TABLE config DROP CONSTRAINT "Config_FertilizerTypeID_FK";
 
 --changeset sean.vanwyk:config:3

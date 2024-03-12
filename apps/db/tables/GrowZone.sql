@@ -2,8 +2,8 @@
 
 --changeset sean.vanwyk:growzone:1
 CREATE TABLE grow_zone (
-  growzoneid serial PRIMARY KEY,
-  growzone_name varchar NOT NULL,
+  grow_zoneid serial PRIMARY KEY,
+  grow_zone_name varchar NOT NULL,
   regionid integer NOT NULL
 );
 --rollback DROP TABLE grow_zone;

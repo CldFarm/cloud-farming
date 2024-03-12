@@ -6,8 +6,8 @@ CREATE TABLE plot (
   plot_name varchar NOT NULL,
   description varchar NOT NULL,
   accountid integer NOT NULL,
-  growzoneid integer NOT NULL,
-  plottypeid integer NOT NULL,
+  grow_zoneid integer NOT NULL,
+  plot_typeid integer NOT NULL,
   configid integer NOT NULL,
   creation_date timestamp NOT NULL,
   terminated boolean NOT NULL

@@ -2,7 +2,7 @@
 
 --changeset sean.vanwyk:plotdata:1
 CREATE TABLE plot_data (
-  plotdataid serial PRIMARY KEY,
+  plot_dataid serial PRIMARY KEY,
   plotid integer NOT NULL,
   growth_percent numeric NOT NULL,
   sunlight numeric NOT NULL,
