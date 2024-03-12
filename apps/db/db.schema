@@ -30,7 +30,7 @@ Table Plot {
   GrowZoneID integer
   PlotTypeID integer
   ConfigID integer
-  CreationDate timestamp
+  CreatedAt timestamp
   Terminated boolean
 }
 
@@ -39,13 +39,13 @@ Table Config {
   ConfigName varchar
   Description varchar
   AccountID integer
-  FertiliserTypeID integer
+  FertalizerTypeID integer
   WaterPerHour numeric
 }
 
-Table FertiliserType {
-  FertiliserTypeID serial [primary key]
-  FertiliserType varchar
+Table FertalizerType {
+  FertalizerTypeID serial [primary key]
+  FertalizerType varchar
 }
 
 Table Region {
@@ -72,9 +72,9 @@ Ref: Plot.PlotTypeID > PlotType.PlotTypeID
 
 Ref: Plot.ConfigID > Config.ConfigID
 
-Ref: FertiliserType.FertiliserTypeID < Config.FertiliserTypeID
+Ref: FertalizerType.FertalizerTypeID < Config.FertalizerTypeID
 
-Ref: PlotType.DefaultConfigID > Config.ConfigID
+Ref: PlotType.DefaultConfigID - Config.ConfigID
 
 Ref: GrowZone.GrowZoneID < Plot.GrowZoneID
 

@@ -1,15 +1,15 @@
-name: CI
+name: Production CI
 
 on:
-  workflow_call:
+  workflow_call: 
   pull_request:
-    branches: [ main ]
+    branches: [main]
+    types: [opened, edited, synchronize]
 
 permissions:
   checks: write
   contents: read
   id-token: write
-  security-events: write
 
 env:
   terraform_directory: './terraform'
@@ -21,16 +21,22 @@ jobs:
   
   terraform-plan:
     name: "Terraform plan"
+    runs-on: ubuntu-latest
     needs: terraform-checks
-    secrets: inherit
-    uses: ./.github/workflows/terraform-ci.yaml
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@main
+        with:
+          role-to-assume: ${{secrets.AWS_ASSUME_ROLE}}
+          aws-region: "eu-west-1"
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
-  test-database-migration:
-    name: "Liquibase checks"
-    secrets: inherit
-    uses: ./.github/workflows/liquibase-ci.yaml
+      - name: Terraform Init
+        working-directory: ${{env.terraform_directory}}
+        id: init
+        run: terraform init
 
-  app-ci:
-    name: "Application checks"
-    secrets: inherit
-    uses: ./.github/workflows/app-ci.yaml
+      - name: Terraform Plan
+        working-directory: ${{env.terraform_directory}}
+        id: plan
+        run: terraform plan
