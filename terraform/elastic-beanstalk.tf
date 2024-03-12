@@ -45,7 +45,7 @@ resource "aws_elastic_beanstalk_environment" "api_env" {
   application         = aws_elastic_beanstalk_application.api_app.name
   solution_stack_name = "64bit Amazon Linux 2023 v4.2.1 running Corretto 21"
   tier                = "WebServer"
-  version_label       = aws_elastic_beanstalk_application_version.default.name
+  # version_label       = aws_elastic_beanstalk_application_version.default.name
 
   setting {
     namespace = "aws:ec2:vpc"
