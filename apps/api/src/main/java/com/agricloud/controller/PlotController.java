@@ -24,7 +24,7 @@ public class PlotController {
         return new GeneralResponse("NOT IMPLEMENTED", null);
     }
     
-    @PutMapping("/create")
+    @PostMapping("/create")
     public GeneralResponse create (@RequestBody PlotModel plot) {
         return plotService.create(plot);
     }
@@ -34,7 +34,7 @@ public class PlotController {
         return new GeneralResponse("NOT IMPLEMENTED", null);
     }
 
-    @PutMapping("edit")
+    @PostMapping("edit")
     public GeneralResponse putMethodName(@RequestBody String entity) {
         return new GeneralResponse("NOT IMPLEMENTED", null);
     }

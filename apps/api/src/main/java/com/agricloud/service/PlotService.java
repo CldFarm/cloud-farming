@@ -1,5 +1,7 @@
 package com.agricloud.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,10 @@ public class PlotService {
 
             try {
                 
+                plot.setCreationDate(new Date());
                 plotRepository.save(plot);
                 response.setStatus("Successfully saved pod");
-                response.setBody(response);
+                response.setBody(plot);
 
             } catch (Exception e) {
 
