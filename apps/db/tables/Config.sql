@@ -20,5 +20,5 @@ ALTER TABLE config ADD CONSTRAINT "Config_AccountID_FK" FOREIGN KEY (accountid) 
 --rollback ALTER TABLE config DROP CONSTRAINT "Config_AccountID_FK";
 
 --changeset sean.vanwyk:config:4
-ALTER TABLE "Config" ADD CONSTRAINT "Config_PositiveWaterPerHour" CHECK (water_per_hour >= 0);
---rollback ALTER TABLE "Config" DROP CONSTRAINT "Config_PositiveWaterPerHour";
+ALTER TABLE config ADD CONSTRAINT "Config_PositiveWaterPerHour" CHECK (water_per_hour >= 0);
+--rollback ALTER TABLE config DROP CONSTRAINT "Config_PositiveWaterPerHour";
