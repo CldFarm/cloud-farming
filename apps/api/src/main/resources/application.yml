@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${COGNITO_CLIENT_ID}
+            client-secret: ${COGNITO_CLIENT_SECRET}
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_dw3OkqpZT
