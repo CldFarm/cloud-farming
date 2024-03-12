@@ -23,6 +23,7 @@
 hs_err_pid*
 replay_pid*
 
+
 # vscode config
 .vscode/
 
@@ -60,6 +61,7 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-
-# env files
-*.env
+.idea/cloud-farming.iml
+.idea/modules.xml
+.idea/vcs.xml
+apps/api/src/main/resources/static/API.env

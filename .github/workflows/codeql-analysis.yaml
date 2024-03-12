@@ -1,16 +1,23 @@
-name: Application CI
+name: "CodeQL"
 
 on:
-  workflow_call: 
-
-permissions:
-  contents: read
-  security-events: write
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java-kotlin' ]
         
     steps:
     - name: Checkout Repository
@@ -26,17 +33,17 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: java-kotlin
+        languages: ${{ matrix.language }}
 
     - name: Build API
       working-directory: ./apps/api
       run: ./gradlew -q build
     
-    - name: Build CLI
+    - name: Build CPI
       working-directory: ./apps/cli
       run: ./gradlew -q build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
-        category: "/language:java-kotlin"
+        category: "/language:${{matrix.language}}"

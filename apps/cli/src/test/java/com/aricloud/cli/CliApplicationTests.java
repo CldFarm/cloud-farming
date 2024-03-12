@@ -1,10 +1,10 @@
-package com.agricloud.api;
+package com.aricloud.cli;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiApplicationTests {
+class CliApplicationTests {
 
 	@Test
 	void contextLoads() {
