@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
 --changeset sean.vanwyk:region:1
-CREATE TABLE "Region" (
-  "RegionID" serial PRIMARY KEY,
-  "RegionName" varchar NOT NULL
+CREATE TABLE region (
+  regionid serial PRIMARY KEY,
+  region_name varchar NOT NULL
 );
---rollback DROP TABLE "Region";
+--rollback DROP TABLE region;
