@@ -60,9 +60,11 @@ jobs:
       run: ./gradlew -q build
 
     - name: Create ZIP Package
-      run: Compress-Archive -Path ./apps/api/build/libs/* -DestinationPath ./deploy_package.zip
+      working-directory: ./apps/api/build/libs
+      run: zip -r deploy_package.zip .
 
     - name: Upload API Package
+      working-directory: ./apps/api/build/libs
       run: aws s3 cp deploy_package.zip s3://beanfarm-deploy-bucket
 
     - name: Create New API Version
