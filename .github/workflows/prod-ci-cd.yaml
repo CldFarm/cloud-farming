@@ -5,14 +5,34 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read
+  checks: write
+  contents: write
   id-token: write
+  security-events: write
+
+env:
+  terraform_directory: './terraform'
 
 jobs:
-  job1:
-    name: Job 1
-    runs-on: ubuntu-latest
+  prod-ci:
+    name: "Prod CI"
+    uses: ./.github/workflows/prod-ci.yaml
+    secrets: inherit
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+  terraform-apply:
+    name: "Terraform apply"
+    needs: prod-ci
+    secrets: inherit
+    uses: ./.github/workflows/terraform-cd.yaml
+
+  database-migration:
+    name: "Liquibase update"
+    needs: prod-ci
+    secrets: inherit
+    uses: ./.github/workflows/liquibase-cd.yaml  
+
+  app-deploy:
+    name: "Deploy/Release API and CLI"
+    needs: prod-ci
+    secrets: inherit
+    uses: ./.github/workflows/app-cd.yaml  
