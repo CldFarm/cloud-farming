@@ -2,7 +2,7 @@ databaseChangeLog:
     - include:
         file: ./apps/db/tables/Account.sql    
     - include:
-        file: ./apps/db/tables/Fertilizer.sql
+        file: ./apps/db/tables/FertilizerType.sql
     - include:
         file: ./apps/db/tables/ProduceType.sql  
     - include:
