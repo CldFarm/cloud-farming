@@ -1,11 +1,13 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:produce:1
-CREATE TABLE "Produce" (
-  "ProduceID" serial PRIMARY KEY,
-  "ProduceName" varchar NOT NULL,
-  "ProduceTypeID" integer NOT NULL
+CREATE TABLE produce (
+  produceid serial PRIMARY KEY,
+  produce_name varchar NOT NULL,
+  produce_typeid integer NOT NULL
 );
--- rollback DROP TABLE "Produce";
+-- rollback DROP TABLE produce;
 
 --changeset sean.vanwyk:produce:2
-ALTER TABLE "Produce" ADD CONSTRAINT "Produce_ProduceTypeID_FK" FOREIGN KEY ("ProduceTypeID") REFERENCES "ProduceType" ("ProduceTypeID");
---rollback ALTER TABLE "Produce" DROP CONSTRAINT "Produce_ProduceTypeID_FK";
+ALTER TABLE produce ADD CONSTRAINT "Produce_ProduceTypeID_FK" FOREIGN KEY (produce_typeid) REFERENCES produce_type (produce_typeid);
+--rollback ALTER TABLE produce DROP CONSTRAINT "Produce_ProduceTypeID_FK";

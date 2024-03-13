@@ -1,11 +1,13 @@
+--liquibase formatted sql
+
 --changeset sean.vanwyk:growzone:1
-CREATE TABLE "GrowZone" (
-  "GrowZoneID" serial PRIMARY KEY,
-  "GrowZoneName" varchar NOT NULL,
-  "RegionID" integer NOT NULL
+CREATE TABLE grow_zone (
+  grow_zoneid serial PRIMARY KEY,
+  grow_zone_name varchar NOT NULL,
+  regionid integer NOT NULL
 );
---rollback DROP TABLE "GrowZone";
+--rollback DROP TABLE grow_zone;
 
 --changeset sean.vanwyk:growzone:2
-ALTER TABLE "GrowZone" ADD CONSTRAINT "GrowZone_RegionID_FK" FOREIGN KEY ("RegionID") REFERENCES "Region" ("RegionID");
---rollback ALTER TABLE "GrowZone" DROP CONSTRAINT "GrowZone_RegionID_FK";
+ALTER TABLE grow_zone ADD CONSTRAINT "GrowZone_RegionID_FK" FOREIGN KEY (regionid) REFERENCES region (regionid);
+--rollback ALTER TABLE grow_zone DROP CONSTRAINT "GrowZone_RegionID_FK";

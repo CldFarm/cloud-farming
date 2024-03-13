@@ -24,7 +24,7 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
       - name: Get DB credentials
-        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.1
         with:
           secret-ids: |
             DB_DETAILS, rds*
