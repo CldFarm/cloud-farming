@@ -30,6 +30,7 @@ public class PlotService {
 
             } catch (Exception e) {
 
+                e.printStackTrace();
                 response.setStatus("Error occured with saving pod");
 
             }
