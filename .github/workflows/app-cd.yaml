@@ -25,7 +25,7 @@ jobs:
     
   #   - name: Build CLI
   #     working-directory: ./apps/cli
-  #     run: ./gradlew -q build
+  #     run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
 
   #   - name: Create Release
   #     uses: softprops/action-gh-release@v2
@@ -57,7 +57,7 @@ jobs:
 
     - name: Build API
       working-directory: ./apps/api
-      run: ./gradlew -q build
+      run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
 
     - name: Create ZIP Package
       working-directory: ./apps/api/build/libs
