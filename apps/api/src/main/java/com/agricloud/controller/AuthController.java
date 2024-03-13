@@ -7,13 +7,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.agricloud.response.GeneralResponse;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    
-    @PostMapping("/login")
-    public GeneralResponse login(@RequestBody String body) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+
+    @GetMapping("/login")
+    public String handleLogin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            return "redirect:/";
+        } else {
+            return "redirect:/oauth2/authorization/cognito" ;
+        }
     }
 
 }

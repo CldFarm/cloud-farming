@@ -63,3 +63,4 @@ terraform.rc
 
 # env files
 *.env
+.idea/workspace.xml
