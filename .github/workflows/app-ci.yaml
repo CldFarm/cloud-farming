@@ -40,23 +40,23 @@ jobs:
         aws-region: "eu-west-1"
         role-session-name: App_CI_GitHub_to_AWS_via_FederatedOIDC
 
+    # - name: Perform migration on Docker Image
+    #   uses: liquibase-github-actions/update-testing-rollback@v4.26.0
+    #   with:
+    #     changelogFile: "./root-changelog.yaml"
+    #     url: "jdbc:postgresql://localhost:5432/test"
+    #     password: "postgres"
+    #     username: "pass123"
+
+    - name: Fetch AWS RDS endpoint
+      run: echo "DB_ENDPOINT=$(aws rds describe-db-instances --db-instance-identifier beanfarmdb --query 'DBInstances[0].Endpoint.Address' --output text)" >> $GITHUB_ENV
+    
     - name: Get DB credentials
       uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.1
       with:
         secret-ids: |
           DB_DETAILS, rds*
         parse-json-secrets: true
-
-    - name: Perform migration on Docker Image
-      uses: liquibase-github-actions/update-testing-rollback@v4.26.0
-      with:
-        changelogFile: "./root-changelog.yaml"
-        url: "jdbc:postgresql://localhost/test"
-        password: "postgres"
-        username: "pass123"
-
-    - name: Fetch AWS RDS endpoint
-      run: echo "DB_ENDPOINT=$(aws rds describe-db-instances --db-instance-identifier beanfarmdb --query 'DBInstances[0].Endpoint.Address' --output text)" >> $GITHUB_ENV
 
     - name: Create api.env
       working-directory: ./apps/api
