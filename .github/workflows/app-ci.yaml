@@ -40,13 +40,13 @@ jobs:
         aws-region: "eu-west-1"
         role-session-name: App_CI_GitHub_to_AWS_via_FederatedOIDC
 
-    # - name: Perform migration on Docker Image
-    #   uses: liquibase-github-actions/update-testing-rollback@v4.26.0
-    #   with:
-    #     changelogFile: "./root-changelog.yaml"
-    #     url: "jdbc:postgresql://localhost:5432/test"
-    #     password: "postgres"
-    #     username: "pass123"
+    - name: Perform migration on Docker Image
+      uses: liquibase-github-actions/update-testing-rollback@v4.26.0
+      with:
+        changelogFile: "./root-changelog.yaml"
+        url: "jdbc:postgresql://localhost:5432/test"
+        password: "postgres"
+        username: "pass123"
 
     - name: Fetch AWS RDS endpoint
       run: echo "DB_ENDPOINT=$(aws rds describe-db-instances --db-instance-identifier beanfarmdb --query 'DBInstances[0].Endpoint.Address' --output text)" >> $GITHUB_ENV
@@ -61,9 +61,9 @@ jobs:
     - name: Create api.env
       working-directory: ./apps/api
       run: |
-        echo "spring.datasource.url = jdbc:postgresql://localhost:5432/test" > api.env
-        echo "spring.datasource.username = postgres" >> api.env
-        echo "spring.datasource.password = pass!" >> api.env
+        echo "spring.datasource.url = jdbc:postgresql://${{env.DB_ENDPOINT}}:5432/beanfarmdb" > api.env
+        echo "spring.datasource.username = ${{env.DB_DETAILS_USERNAME}}" >> api.env
+        echo "spring.datasource.password = ${{env.DB_DETAILS_PASSWORD}}!" >> api.env
         cat api.env
 
     - name: Setup Java JDK
