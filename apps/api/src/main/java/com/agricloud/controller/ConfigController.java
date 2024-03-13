@@ -43,8 +43,8 @@ public class ConfigController {
     }
 
     @PutMapping("edit")
-    public GeneralResponse putMethodName(@RequestBody String entity) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    public GeneralResponse putMethodName(@RequestBody ConfigModel config) {
+        return configService.editConfig(config);
     }
     
 }

@@ -6,6 +6,8 @@ import com.agricloud.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class ConfigService {
@@ -47,6 +49,25 @@ public class ConfigService {
             configRepository.save(config);
             response.setStatus("Success");
             response.setBody(config);
+        } catch (Exception e) {
+            response.setStatus("FAILURE");
+            response.setBody(e);
+        }
+        return response;
+    }
+
+    public GeneralResponse editConfig(ConfigModel config) {
+        GeneralResponse response = new GeneralResponse();
+        try {
+            Optional<ConfigModel> config2 = configRepository.findById(config.getConfigID());
+            if (config2.isEmpty()) {
+                response.setStatus("NOT FOUND");
+                response.setBody(config);
+            } else {
+                configRepository.save(config);
+                response.setStatus("Success");
+                response.setBody(config);
+            }
         } catch (Exception e) {
             response.setStatus("FAILURE");
             response.setBody(e);
