@@ -64,3 +64,8 @@ terraform.rc
 # env files
 *.env
 .idea/workspace.xml
+apps/db/.idea/db.iml
+apps/db/.idea/misc.xml
+apps/db/.idea/vcs.xml
+apps/db/.idea/modules.xml
+apps/db/.idea/workspace.xml
