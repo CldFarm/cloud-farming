@@ -28,13 +28,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Setup Java JDK
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
-        java-package: jdk
-
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
@@ -72,6 +65,13 @@ jobs:
         echo "spring.datasource.username = postgres" >> api.env
         echo "spring.datasource.password = pass!" >> api.env
         echo api.env
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        java-package: jdk
 
     - name: Build API
       working-directory: ./apps/api
