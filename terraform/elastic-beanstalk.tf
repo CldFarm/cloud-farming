@@ -97,6 +97,25 @@ resource "aws_elastic_beanstalk_environment" "api_env" {
     name      = "ManagedActionsEnabled"
     value     = "false"
   }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_USERNAME"
+    value     = module.rds.db_instance_username
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_PASSWORD"
+    value     = jsondecode(data.aws_secretsmanager_secret_version.db-details.secret_string)["password"]
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "DB_ENDPOINT"
+    value     = module.rds.db_instance_address
+  }
+}
+
+data "aws_secretsmanager_secret_version" "db-details" {
+  secret_id = module.rds.db_instance_master_user_secret_arn
 }
 
 # output "elastic_beanstalk_app_url" {
