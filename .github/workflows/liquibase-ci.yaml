@@ -21,7 +21,7 @@ jobs:
         with:
           role-to-assume: ${{secrets.AWS_ASSUME_ROLE}}
           aws-region: "eu-west-1"
-          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          role-session-name: Liquibase_CI_GitHub_to_AWS_via_FederatedOIDC
 
       - name: Get DB credentials
         uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.1

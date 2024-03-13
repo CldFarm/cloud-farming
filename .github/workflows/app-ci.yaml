@@ -6,10 +6,83 @@ on:
 permissions:
   contents: read
   security-events: write
+  id-token: write
 
 jobs:
-  analyze:
-    name: Analyze
+  api-ci:
+    name: API CI
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16.1
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: pass123
+          POSTGRES_DB: test
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+        
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: java-kotlin
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{secrets.AWS_ASSUME_ROLE}}
+        aws-region: "eu-west-1"
+        role-session-name: App_CI_GitHub_to_AWS_via_FederatedOIDC
+
+    # - name: Perform migration on Docker Image
+    #   uses: liquibase-github-actions/update-testing-rollback@v4.26.0
+    #   with:
+    #     changelogFile: "./root-changelog.yaml"
+    #     url: "jdbc:postgresql://localhost:5432/test"
+    #     password: "postgres"
+    #     username: "pass123"
+
+    - name: Fetch AWS RDS endpoint
+      run: echo "DB_ENDPOINT=$(aws rds describe-db-instances --db-instance-identifier beanfarmdb --query 'DBInstances[0].Endpoint.Address' --output text)" >> $GITHUB_ENV
+    
+    - name: Get DB credentials
+      uses: aws-actions/aws-secretsmanager-get-secrets@v2.0.1
+      with:
+        secret-ids: |
+          DB_DETAILS, rds*
+        parse-json-secrets: true
+
+    - name: Create api.env
+      working-directory: ./apps/api
+      run: |
+        echo "spring.datasource.url = jdbc:postgresql://${{env.DB_ENDPOINT}}:5432/beanfarmdb" > api.env
+        echo "spring.datasource.username = ${{env.DB_DETAILS_USERNAME}}" >> api.env
+        echo "spring.datasource.password = ${{env.DB_DETAILS_PASSWORD}}" >> api.env
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        java-package: jdk
+
+    - name: Build API
+      working-directory: ./apps/api
+      run: ./gradlew -q build
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:java-kotlin"
+
+  cli-ci:
+    name: CLI CI
     runs-on: ubuntu-latest
         
     steps:
@@ -27,10 +100,6 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: java-kotlin
-
-    - name: Build API
-      working-directory: ./apps/api
-      run: ./gradlew -q build
     
     - name: Build CLI
       working-directory: ./apps/cli
