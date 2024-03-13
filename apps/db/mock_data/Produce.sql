@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:produce:1
+--changeset sean.vanwyk:produce:1 label:mock context:@mock
 INSERT INTO produce (produce_name, produce_typeid) VALUES 
   ('Red Beans', 1),
   ('Black Beans', 1),

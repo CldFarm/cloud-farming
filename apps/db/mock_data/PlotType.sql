@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:plottype:1
-INSERT INTO "PlotType" ("PlotTypeName", "PlotSize", "ProduceId", "DefaultConfigID") VALUES
+--changeset sean.vanwyk:plottype:1 label:mock context:@mock
+INSERT INTO plot_type (plot_type_name, plot_size, produceid, default_configid) VALUES
   ('coffee.t1.micro', 5, 16, 6),
   ('coffee.t1.mini', 10, 16, 3),
   ('coffee.t1.medium', 20, 16, 2),
@@ -13,5 +13,5 @@ INSERT INTO "PlotType" ("PlotTypeName", "PlotSize", "ProduceId", "DefaultConfigI
   ('beans.sky1.micro', 20, 10, 13),
   ('beans.sky1.mini', 40, 10, 11),
   ('beans.sky1.medium', 60, 10, 8),
-  ('beans.sky1.large', 80, 10, 9),
---rollback DROP FROM "PlotType";
+  ('beans.sky1.large', 80, 10, 9);
+--rollback DROP FROM plot_type;

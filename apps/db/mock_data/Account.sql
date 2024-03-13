@@ -51,4 +51,4 @@ insert into account (account_uid) values ('50bb69de-dd2b-4fa1-af09-0e985632ad3b'
 insert into account (account_uid) values ('3f89c6f8-dfca-4119-92b5-cc29bb235f35');
 insert into account (account_uid) values ('f25a0622-f372-4aee-96bc-2a3ee6ac59ec');
 insert into account (account_uid) values ('4bba0cd0-39cb-4060-839c-aeda7efbdaff');
---rollback DROP FROM "Account";
+--rollback DROP FROM account;

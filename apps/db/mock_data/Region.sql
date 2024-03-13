@@ -1,7 +1,7 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:region:1
-INSERT INTO "Region" ("RegionName") VALUES
+--changeset sean.vanwyk:region:1 label:mock context:@mock
+INSERT INTO region (region_name) VALUES
 ('South Africa'),
 ('Mars');
---rollback DROP FROM "Region";
+--rollback DROP FROM region;

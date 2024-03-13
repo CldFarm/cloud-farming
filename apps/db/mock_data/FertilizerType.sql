@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:fertilizer:1
+--changeset sean.vanwyk:fertilizer:1 label:mock context:@mock
 insert into fertilizer_type (fertilizer_type) values ('Blue Umbrella-sedge');
 insert into fertilizer_type (fertilizer_type) values ('Curvepod Fumewort');
 insert into fertilizer_type (fertilizer_type) values ('Tulip');
@@ -21,4 +21,4 @@ insert into fertilizer_type (fertilizer_type) values ('Guavaberry');
 insert into fertilizer_type (fertilizer_type) values ('Fresno Mat');
 insert into fertilizer_type (fertilizer_type) values ('Palmer''s Clover');
 insert into fertilizer_type (fertilizer_type) values ('Wavyleaf Blazingstar');
---rollback DROP FROM "FertilizerType";
+--rollback DROP FROM fertilizer_type;
