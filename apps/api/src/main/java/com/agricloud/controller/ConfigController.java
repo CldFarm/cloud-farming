@@ -1,5 +1,8 @@
 package com.agricloud.controller;
 
+import com.agricloud.model.ConfigModel;
+import com.agricloud.service.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,17 +16,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/configs")
 public class ConfigController {
+
+    @Autowired
+    ConfigService configService;
+
+    @GetMapping("")
+    public GeneralResponse getAll() {
+        return configService.getAllConfigs();
+    }
     
-    @GetMapping("/{name}/info")
-    public GeneralResponse info (@PathVariable(value = "name") String configName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @GetMapping("/{id}/info")
+    public GeneralResponse info (@PathVariable(value = "id") Integer configID) {
+        return configService.getConfigById(configID);
     }
     
     @PutMapping("/create")
-    public GeneralResponse create (@RequestBody String entity) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    public GeneralResponse create (@RequestBody ConfigModel config) {
+        return configService.createConfig(config);
     }
 
     @DeleteMapping("/{name}") 
