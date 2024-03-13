@@ -48,10 +48,10 @@ jobs:
         parse-json-secrets: true
 
     - name: Perform migration on Docker Image
-      uses: liquibase-github-actions/validate@v4.26.0
+      uses: liquibase-github-actions/update-testing-rollback@v4.26.0
       with:
         changelogFile: "./root-changelog.yaml"
-        url: "jdbc:postgresql://localhost:5432/test"
+        url: "jdbc:postgresql://localhost/test"
         password: "postgres"
         username: "pass123"
 
