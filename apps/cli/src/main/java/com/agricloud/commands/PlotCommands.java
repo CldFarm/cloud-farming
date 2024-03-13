@@ -14,15 +14,29 @@ public class PlotCommands extends AbstractShellComponent {
     @Autowired
     private PlotService plotService;
 
-    @ShellMethod(key = "create plot", value = "test command")
+    @ShellMethod(key = "plot create", value = "test command")
     public String createPlot(
         @ShellOption(value = "name", help = "Name of the plot") String plotName,
         @ShellOption(value = "desc", help = "Description of the plot") String description,
-        @ShellOption(value = "grow-zone", help = "Grow Zone where the plot will be provisioned") Integer growZone, 
-        @ShellOption(value = "plot-type", help = "Type of plot") Integer plotTypeID,
-        @ShellOption(value = "config", help = "Config connected to the plot")  Integer configID
+        @ShellOption(value = "grow-zone", help = "Grow Zone where the plot will be provisioned") int growZone, 
+        @ShellOption(value = "plot-type", help = "Type of plot") int plotTypeID,
+        @ShellOption(value = "config", help = "Config connected to the plot")  int configID
     ) {
         return plotService.createPlot(plotName, description, growZone, plotTypeID, configID);
+    } 
+
+    @ShellMethod(key = "plot info", value = "test command")
+    public String getPlotInfo(
+        @ShellOption(value = "plot-id", help = "Plot ID") int plotID
+    ) {
+        return plotService.getPlotInfo(plotID);
+    } 
+
+    @ShellMethod(key = "plot terminate", value = "test command")
+    public String terminatePlot(
+        @ShellOption(value = "plot-id", help = "Plot ID") int plotID
+    ) {
+        return plotService.terminate(plotID);
     } 
 
 }
