@@ -1,4 +1,4 @@
-package com.agricloud.cli;
+package com.agricloud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

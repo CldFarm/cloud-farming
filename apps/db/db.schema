@@ -1,91 +1,91 @@
-Table PlotType {
-  PlotTypeID serial [primary key]
-  PlotTypeName varchar
-  PlotSize numeric
-  ProduceID integer
-  DefaultConfigID integer
+Table plottype {
+  plot_typeid serial [primary key]
+  plot_type_name varchar
+  plot_size numeric
+  produceid integer
+  default_configid integer
 }
 
-Table Produce {
-  ProduceID serial [primary key]
-  ProduceName varchar
-  ProduceTypeID integer
+Table produce {
+  produceid serial [primary key]
+  produceName varchar
+  produceTypeID integer
 }
 
-Table ProduceType {
-  ProduceTypeID serial [primary key]
-  ProduceType varchar
+Table produceType {
+  produceTypeID serial [primary key]
+  produceType varchar
 }
 
-Table Account {
-  AccountID serial [primary key]
-  AccountUID varchar
+Table account {
+  accountid serial [primary key]
+  account_uid varchar
 }
 
-Table Plot {
-  PlotID serial [primary key]
-  PlotName varchar
-  Description varchar
-  AccountID integer
-  GrowZoneID integer
-  PlotTypeID integer
-  ConfigID integer
-  CreationDate timestamp
-  Terminated boolean
+Table plot {
+  plotid serial [primary key]
+  plot_ame varchar
+  description varchar
+  accountid integer
+  grow_zoneid integer
+  plot_typeid integer
+  configid integer
+  creation_date timestamp
+  terminated boolean
 }
 
-Table Config {
-  ConfigID serial [primary key]
-  ConfigName varchar
-  Description varchar
-  AccountID integer
-  FertiliserTypeID integer
-  WaterPerHour numeric
+Table config {
+  configid serial [primary key]
+  config_name varchar
+  description varchar
+  accountid integer
+  fertilizer_typeid integer
+  water_per_hour numeric
 }
 
-Table FertiliserType {
-  FertiliserTypeID serial [primary key]
-  FertiliserType varchar
+Table fertalizer_type {
+  fertilizer_typeid serial [primary key]
+  Fertalizer_type varchar
 }
 
-Table Region {
-  RegionID serial [primary key]
-  RegionName varchar
+Table region {
+  regionid serial [primary key]
+  region_name varchar
 }
 
-Table GrowZone {
-  GrowZoneID serial [primary key]
-  GrowZoneName varchar
-  RegionID integer
+Table grow_zone {
+  grow_zoneid serial [primary key]
+  grow_zone_name varchar
+  regionid integer
 }
 
-Table PlotData {
-  PlotDataID serial [primary key]
-  PlotID integer
-  GrowthPercent numeric
-  Sunlight numeric
-  SoilMoisture numeric
-  TimeTaken timestamp
+Table plotData {
+  plotDataID serial [primary key]
+  plotid integer
+  growth_percent numeric
+  sunlight numeric
+  soil_moisture numeric
+  time_taken timestamp
 }
 
-Ref: Plot.PlotTypeID > PlotType.PlotTypeID
+Ref: plot.plot_typeid > plottype.plot_typeid
 
-Ref: Plot.ConfigID > Config.ConfigID
+Ref: plot.configid > config.configid
 
-Ref: FertiliserType.FertiliserTypeID < Config.FertiliserTypeID
+Ref: fertalizer_type.fertilizer_typeid < config.fertilizer_typeid
 
-Ref: PlotType.DefaultConfigID > Config.ConfigID
+Ref: plottype.default_configid > config.configid
 
-Ref: GrowZone.GrowZoneID < Plot.GrowZoneID
+Ref: grow_zone.grow_zoneid < plot.grow_zoneid
 
-Ref: GrowZone.RegionID > Region.RegionID
+Ref: grow_zone.regionid > region.regionid
 
-Ref: Account.AccountID < Plot.AccountID
+Ref: account.accountid < plot.accountid
 
-Ref: Account.AccountID < Config.AccountID
+Ref: account.accountid < config.accountid
 
-Ref: PlotType.ProduceID > Produce.ProduceID
+Ref: plottype.produceid > produce.produceid
 
-Ref: Produce.ProduceTypeID > ProduceType.ProduceTypeID
+Ref: produce.produceTypeID > produceType.produceTypeID
 
-Ref: PlotData.PlotID > Plot.PlotID
+Ref: plotData.plotid > plot.plotid
