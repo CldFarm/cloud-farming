@@ -63,8 +63,7 @@ jobs:
       run: |
         echo "spring.datasource.url = jdbc:postgresql://${{env.DB_ENDPOINT}}:5432/beanfarmdb" > api.env
         echo "spring.datasource.username = ${{env.DB_DETAILS_USERNAME}}" >> api.env
-        echo "spring.datasource.password = ${{env.DB_DETAILS_PASSWORD}}!" >> api.env
-        cat api.env
+        echo "spring.datasource.password = ${{env.DB_DETAILS_PASSWORD}}" >> api.env
 
     - name: Setup Java JDK
       uses: actions/setup-java@v4
