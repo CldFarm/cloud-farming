@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:config:1 label:mock context:@mock
+--changeset sean.vanwyk:config:1 label:mock
 INSERT INTO config (config_name, description, accountid, fertilizer_typeid, water_per_hour) VALUES
   ('CloudFarm 1', 'Default Config 1, Managed by CloudFarm', NULL, 1, 10),
   ('CloudFarm 2', 'Default Config 2, Managed by CloudFarm', NULL, 2, 20),

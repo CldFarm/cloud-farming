@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean:vanwyk:plotdata:1 label:mock context:@mock
+--changeset sean:vanwyk:plotdata:1 label:mock
 INSERT INTO plot_data (plotid, growth_percent, sunlight, soil_moisture, time_taken) VALUES
   (1, 0, 40, 80, '2024-03-13'),
   (2, 0, 10, 30, '2023-10-01'),

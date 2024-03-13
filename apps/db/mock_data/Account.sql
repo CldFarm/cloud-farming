@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:account:1 label:mock context:@mock
+--changeset sean.vanwyk:account:1 label:mock
 insert into account (account_uid) values ('5ffb8c73-fe9c-4c3b-9d19-0d03c6730a4f');
 insert into account (account_uid) values ('2d29a992-a250-4abc-9cdc-3f2375e0e10d');
 insert into account (account_uid) values ('8a2443c5-5f7c-425a-861b-8829cb704613');

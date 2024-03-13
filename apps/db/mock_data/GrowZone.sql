@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:growzone:1 label:mock context:@mock
+--changeset sean.vanwyk:growzone:1 label:mock
 INSERT INTO grow_zone (grow_zone_name, regionid) VALUES
   ('za-1a', 1),
   ('za-1b', 1),

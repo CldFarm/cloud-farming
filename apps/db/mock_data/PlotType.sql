@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:plottype:1 label:mock context:@mock
+--changeset sean.vanwyk:plottype:1 label:mock
 INSERT INTO plot_type (plot_type_name, plot_size, produceid, default_configid) VALUES
   ('coffee.t1.micro', 5, 16, 6),
   ('coffee.t1.mini', 10, 16, 3),

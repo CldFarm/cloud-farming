@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset sean.vanwyk:fertilizer:1 label:mock context:@mock
+--changeset sean.vanwyk:fertilizer:1 label:mock
 insert into fertilizer_type (fertilizer_type) values ('Blue Umbrella-sedge');
 insert into fertilizer_type (fertilizer_type) values ('Curvepod Fumewort');
 insert into fertilizer_type (fertilizer_type) values ('Tulip');
