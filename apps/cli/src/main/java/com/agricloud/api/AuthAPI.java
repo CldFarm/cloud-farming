@@ -13,9 +13,9 @@ public class AuthAPI {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public GeneralResponse getRegions() {
+    public GeneralResponse login() {
         try {
-            return restTemplate.getForObject(new URI("http://localhost:5000/oauth2/authorization/cognito"), GeneralResponse.class);
+            return restTemplate.getForObject(new URI("http://localhost:5000"), GeneralResponse.class);
         } catch (RestClientException e) {
             return new GeneralResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
