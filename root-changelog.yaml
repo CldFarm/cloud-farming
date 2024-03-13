@@ -19,3 +19,25 @@ databaseChangeLog:
         file: ./apps/db/tables/Plot.sql
     - include:
         file: ./apps/db/tables/PlotData.sql
+
+    # Mock Data
+    - include:
+        file: ./apps/db/mock_data/Account.sql    
+    - include:
+        file: ./apps/db/mock_data/FertilizerType.sql
+    - include:
+        file: ./apps/db/mock_data/ProduceType.sql  
+    - include:
+        file: ./apps/db/mock_data/Config.sql
+    - include:
+        file: ./apps/db/mock_data/Produce.sql
+    - include:
+        file: ./apps/db/mock_data/PlotType.sql
+    - include:
+        file: ./apps/db/mock_data/Region.sql
+    - include:
+        file: ./apps/db/mock_data/GrowZone.sql
+    - include:
+        file: ./apps/db/mock_data/Plot.sql
+    - include:
+        file: ./apps/db/mock_data/PlotData.sql
