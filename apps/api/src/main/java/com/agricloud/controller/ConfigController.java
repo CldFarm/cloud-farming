@@ -37,9 +37,10 @@ public class ConfigController {
         return configService.createConfig(config);
     }
 
-    @DeleteMapping("/{name}") 
-    public GeneralResponse delete (@PathVariable(value = "name") String configName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @DeleteMapping("/{id}")
+    public GeneralResponse delete (@PathVariable(value = "id") Integer configID) {
+        return configService.deleteConfig(configID);
+
     }
 
     @PutMapping("edit")
