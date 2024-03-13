@@ -13,17 +13,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/auth")
 public class AuthController {
 
     @GetMapping("/login")
     public String handleLogin() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            return "redirect:/";
-        } else {
-            return "redirect:/oauth2/authorization/cognito" ;
-        }
+        // Redirect the user to the OAuth2 authorization endpoint for Cognito
+        String cognitoAuthorizationUrl = "localhost:5000/oauth2/authorization/cognito";
+        return "{\"redirect\": \"" + cognitoAuthorizationUrl + "\"}";
     }
-
 }
+
