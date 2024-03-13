@@ -25,19 +25,19 @@ public class PlotService {
                 
                 plot.setCreationDate(new Date());
                 plotRepository.save(plot);
-                response.setStatus("Successfully saved pod");
+                response.setStatus("Successfully saved plot");
                 response.setBody(plot);
 
             } catch (Exception e) {
 
                 e.printStackTrace();
-                response.setStatus("Error occured with saving pod");
+                response.setStatus("Error occured with saving plot");
 
             }
 
         } else {
 
-            response.setStatus("Pod cannot be null");
+            response.setStatus("Plot cannot be null");
             
         }
 
@@ -45,19 +45,60 @@ public class PlotService {
 
     }
 
-    public GeneralResponse info (String plotName) {
+    @SuppressWarnings("null")
+    public GeneralResponse info (Integer plotID) {
         
         GeneralResponse response = new GeneralResponse();
 
         try {
-                
-            // plotRepository.findById(plot);
-            response.setStatus("Successfully saved pod");
-            response.setBody(response);
+
+            plotRepository.findById(plotID)
+                .ifPresentOrElse(
+                    (plot) -> {
+                        response.setBody(plot);
+                        response.setStatus("Successfully retrieved plot");
+                    }, 
+                    () -> {
+                        response.setStatus("Plot doesn't exist with ID " + plotID);
+                    }
+                );
 
         } catch (Exception e) {
 
-            response.setStatus("Error occured while saving pod");
+            response.setStatus("Error occured while saving plot");
+
+        }
+
+        return response;
+
+    }
+
+    @SuppressWarnings("null")
+    public GeneralResponse terminate (Integer plotID) {
+
+        GeneralResponse response = new GeneralResponse();
+
+        try {
+
+            plotRepository.findById(plotID)
+                .ifPresentOrElse(
+                    (plot) -> {
+
+                        plot.setTerminated(true);
+                        plotRepository.save(plot);
+
+                        response.setBody(plot);
+                        response.setStatus("Successfully terminated plot");
+
+                    }, 
+                    () -> {
+                        response.setStatus("Plot doesn't exist with plotid: " + plotID);
+                    }
+                );
+
+        } catch (Exception e) {
+
+            response.setStatus("Error occured while saving plot");
 
         }
 

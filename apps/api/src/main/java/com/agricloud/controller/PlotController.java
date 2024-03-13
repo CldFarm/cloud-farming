@@ -15,8 +15,8 @@ public class PlotController {
     private PlotService plotService;
     
     @GetMapping("/{name}/info")
-    public GeneralResponse info (@PathVariable(value = "name") String plotName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    public GeneralResponse info (@PathVariable(value = "name") int plotID) {
+        return plotService.info(plotID);
     }
 
     @GetMapping("/{name}/logs")
@@ -29,9 +29,9 @@ public class PlotController {
         return plotService.create(plot);
     }
 
-    @DeleteMapping("/{name}") 
-    public GeneralResponse delete (@PathVariable(value = "name") String configName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @PostMapping("/{name}/terminate") 
+    public GeneralResponse terminate (@PathVariable(value = "name") int plotID) {
+        return plotService.terminate(plotID);
     }
 
     @PostMapping("edit")
