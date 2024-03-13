@@ -26,12 +26,12 @@ public class ConfigController {
     public GeneralResponse getAll() {
         return configService.getAllConfigs();
     }
-    
+
     @GetMapping("/{id}/info")
     public GeneralResponse info (@PathVariable(value = "id") Integer configID) {
         return configService.getConfigById(configID);
     }
-    
+
     @PutMapping("/create")
     public GeneralResponse create (@RequestBody ConfigModel config) {
         return configService.createConfig(config);
@@ -44,8 +44,8 @@ public class ConfigController {
     }
 
     @PutMapping("edit")
-    public GeneralResponse putMethodName(@RequestBody ConfigModel config) {
+    public GeneralResponse edit (@RequestBody ConfigModel config) {
         return configService.editConfig(config);
     }
-    
+
 }
