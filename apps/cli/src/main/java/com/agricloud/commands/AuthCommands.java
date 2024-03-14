@@ -31,8 +31,7 @@ public class AuthCommands extends AbstractShellComponent {
     @ShellMethod(key = "login", value = "test command")
     public void login() {
         try {
-            // Construct the URI for the login endpoint
-//            URI loginUri = new URI(apiConfig.getEndpoint() + "/oauth2/authorization/cognito");
+            
             URI loginUri = new URI("http://localhost:55555");
 
             System.out.println("Follow this link to login "+loginUri);
