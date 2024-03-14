@@ -2,9 +2,11 @@ package com.agricloud.context;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.context.annotation.Scope;
+
 
 @Component
-@RequestScope
+@Scope("singleton")
 public class UserContext {
     private String loggedInUser;
 

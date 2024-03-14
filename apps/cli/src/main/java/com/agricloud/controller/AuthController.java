@@ -12,24 +12,20 @@ public class AuthController {
 
     private String loggedInUser;
 
-//    @Autowired
-//    private UserContext userContext;
+   @Autowired
+   private UserContext userContext;
 
     @GetMapping
     public String welcome(Principal principal){
         loggedInUser = principal.getName();
-        return "Welcome " + loggedInUser;
-//        return "logged in, you can now close the window and return to the cli app";
+        userContext.setLoggedInUser(loggedInUser);
+        return return "logged in, you can now close the window and return to the cli app";
     }
+
     @GetMapping("/user")
     public Principal user(Principal principal){
         System.out.println("username :"  + principal.getName());
         return principal;
     }
-
-    @GetMapping("/oauth/token")
-    public String oauth(Principal principal){
-        System.out.println("username :"  + principal.getName());
-        return principal.getName();
-    }
+    
 }

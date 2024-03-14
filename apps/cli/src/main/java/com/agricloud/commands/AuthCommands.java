@@ -9,6 +9,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.shell.standard.ShellMethod;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +28,7 @@ public class AuthCommands extends AbstractShellComponent {
     @Autowired
     private UserContext userContext;
 
-    @ShellMethod("Login")
+    @ShellMethod(key = "login", value = "test command")
     public void login() {
         try {
             // Construct the URI for the login endpoint
@@ -36,14 +37,19 @@ public class AuthCommands extends AbstractShellComponent {
 
             System.out.println("Follow this link to login "+loginUri);
 
-            while(userContext.getLoggedInUser()==""||userContext.getLoggedInUser()==null){}
-
-            System.out.println("logged in as "+userContext.getLoggedInUser());
 
         } catch (URISyntaxException | RestClientException e) {
             System.err.println("Failed to initiate login: " + e.getMessage());
         }
     }
 
+    @ShellMethod(key = "loggedIn", value = "test command")
+    public void logggedIn() {
+
+        System.out.println(userContext.getLoggedInUser());
+
+    }
+
 }
+
 
