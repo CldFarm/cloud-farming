@@ -99,18 +99,18 @@ resource "aws_elastic_beanstalk_environment" "api_env" {
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DB_USERNAME"
+    name      = "SPRING_DATASOURCE_USERNAME"
     value     = module.rds.db_instance_username
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DB_PASSWORD"
+    name      = "SPRING_DATASOURCE_PASSWORD"
     value     = jsondecode(data.aws_secretsmanager_secret_version.db-details.secret_string)["password"]
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "DB_ENDPOINT"
-    value     = module.rds.db_instance_address
+    name      = "SPRING_DATASOURCE_URL"
+    value     = "jdbc:postgresql://${module.rds.db_instance_address}:5432/beanfarmdb"
   }
 }
 
