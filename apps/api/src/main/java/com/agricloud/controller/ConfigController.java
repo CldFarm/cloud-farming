@@ -22,9 +22,9 @@ public class ConfigController {
     @Autowired
     ConfigService configService;
 
-    @GetMapping("")
-    public GeneralResponse getAll() {
-        return configService.getAllConfigs();
+    @GetMapping("/user/{user}")
+    public GeneralResponse getAll(@PathVariable(value = "user") Integer userID) {
+        return configService.getAllUserConfigs(userID);
     }
 
     @GetMapping("/{id}/info")
@@ -37,7 +37,7 @@ public class ConfigController {
         return configService.createConfig(config);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public GeneralResponse delete (@PathVariable(value = "id") Integer configID) {
         return configService.deleteConfig(configID);
 

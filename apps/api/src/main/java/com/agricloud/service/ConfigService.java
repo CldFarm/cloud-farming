@@ -18,10 +18,11 @@ public class ConfigService {
     @Autowired
     private PlotRepository plotRepository;
 
-    public GeneralResponse getAllConfigs() {
+    public GeneralResponse getAllUserConfigs(Integer accountID) {
         GeneralResponse response = new GeneralResponse();
         try {
-            Iterable<ConfigModel> configs = configRepository.findAll();
+            Iterable<ConfigModel> configs = configRepository.findAllByAccountIDOrAccountIDIsNull(accountID);
+
             response.setBody(configs);
             response.setStatus("Success");
         } catch (Exception e) {
