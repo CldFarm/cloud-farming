@@ -30,7 +30,7 @@ public class ConfigController {
         return configService.createConfig(config);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @PostMapping("/{id}/delete")
     public GeneralResponse delete (@PathVariable(value = "id") Integer configID) {
         return configService.deleteConfig(configID);
 
