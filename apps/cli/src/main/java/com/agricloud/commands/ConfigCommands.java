@@ -34,7 +34,7 @@ public class ConfigCommands extends AbstractShellComponent {
     public String configsUserList(
             @ShellOption(value = "id", help = "List available configs for the given user") int id
     ) {
-        return configService.listAllFromId(id);
+        return configService.listAllFromId(Integer.parseInt(userContext.getLoggedInUser()));
     }
 
     @ShellMethod(key = "config info", value = "Get information about a config")

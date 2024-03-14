@@ -34,7 +34,7 @@ public class Config {
                 Object value = fields[i].get(this);
                 if (value instanceof String || value instanceof Date) {
                     jsonBuilder.append("\"").append(value).append("\"");
-                } else {
+                } else if (value != null) {
                     jsonBuilder.append(value.toString());
                 }
 

@@ -75,16 +75,18 @@ public class PlotServiceTests {
     @Test
     void testInfoPlotExists() {
         // Arrange
-        Integer plotID = 1;
+        String plotName = "test plot";
+        Integer accID = 1;
         PlotModel plot = new PlotModel();
-        plot.setPlotID(plotID);
-        when(plotRepository.findById(plotID)).thenReturn(Optional.of(plot));
+        plot.setPlotName(plotName);
+        plot.setAccountID(accID);
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenReturn(Optional.of(plot));
 
         // Act
-        GeneralResponse response = plotService.info(plotID);
+        GeneralResponse response = plotService.info(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
         assertEquals(plot, response.getBody());
         assertEquals("Successfully retrieved plot", response.getStatus());
     }
@@ -92,44 +94,48 @@ public class PlotServiceTests {
     @Test
     void testInfoPlotNotExists() {
         // Arrange
-        Integer plotID = 1;
-        when(plotRepository.findById(plotID)).thenReturn(Optional.empty());
+        String plotName = "test plot";
+        Integer accID = 1;
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenReturn(Optional.empty());
 
         // Act
-        GeneralResponse response = plotService.info(plotID);
+        GeneralResponse response = plotService.info(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
-        assertEquals("Plot doesn't exist with ID " + plotID, response.getStatus());
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
+        assertEquals("Plot doesn't exist with name " + plotName, response.getStatus());
     }
 
     @Test
     void testInfoError() {
         // Arrange
-        Integer plotID = 1;
-        when(plotRepository.findById(plotID)).thenThrow(new RuntimeException("Error retrieving plot"));
+        String plotName = "test plot";
+        Integer accID = 1;
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenThrow(new RuntimeException("Error retrieving plot"));
 
         // Act
-        GeneralResponse response = plotService.info(plotID);
+        GeneralResponse response = plotService.info(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
-        assertEquals("Error occured while saving plot", response.getStatus());
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
+        assertEquals("Error occured while retrieving plot", response.getStatus());
     }
 
     @Test
     void testTerminatePlotExists() {
         // Arrange
-        Integer plotID = 1;
+        String plotName = "test plot";
+        Integer accID = 1;
         PlotModel plot = new PlotModel();
-        plot.setPlotID(plotID);
-        when(plotRepository.findById(plotID)).thenReturn(Optional.of(plot));
+        plot.setPlotName(plotName);
+        plot.setAccountID(accID);
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenReturn(Optional.of(plot));
 
         // Act
-        GeneralResponse response = plotService.terminate(plotID);
+        GeneralResponse response = plotService.terminate(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
         verify(plotRepository).save(plot);
         assertEquals(plot, response.getBody());
         assertEquals("Successfully terminated plot", response.getStatus());
@@ -138,29 +144,31 @@ public class PlotServiceTests {
     @Test
     void testTerminatePlotNotExists() {
         // Arrange
-        Integer plotID = 1;
-        when(plotRepository.findById(plotID)).thenReturn(Optional.empty());
+        String plotName = "test plot";
+        Integer accID = 1;
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenReturn(Optional.empty());
 
         // Act
-        GeneralResponse response = plotService.terminate(plotID);
+        GeneralResponse response = plotService.terminate(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
         verifyNoMoreInteractions(plotRepository);
-        assertEquals("Plot doesn't exist with plotid: " + plotID, response.getStatus());
+        assertEquals("Plot doesn't exist with plot name: " + plotName, response.getStatus());
     }
 
     @Test
     void testTerminateErrorSavingPlot() {
         // Arrange
-        Integer plotID = 1;
-        when(plotRepository.findById(plotID)).thenThrow(new RuntimeException("Error saving plot"));
+        String plotName = "test plot";
+        Integer accID = 1;
+        when(plotRepository.findPlotModelByAccountIDAndPlotName(accID, plotName)).thenThrow(new RuntimeException("Error saving plot"));
 
         // Act
-        GeneralResponse response = plotService.terminate(plotID);
+        GeneralResponse response = plotService.terminate(plotName, accID);
 
         // Assert
-        verify(plotRepository).findById(plotID);
+        verify(plotRepository).findPlotModelByAccountIDAndPlotName(accID, plotName);
         verifyNoMoreInteractions(plotRepository);
         assertEquals("Error occured while saving plot", response.getStatus());
     }

@@ -21,9 +21,9 @@ public class PlotAPI {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public PlotResponse createPlot(Plot plot, Integer accID) {
+    public PlotResponse createPlot(Plot plot, String accID) {
         try {
-            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + "/create?accID=" + accID), plot, PlotResponse.class);
+            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/create?accID=" + accID), plot, PlotResponse.class);
         } catch (RestClientException e) {
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
@@ -31,7 +31,7 @@ public class PlotAPI {
         }
     }    
     
-    public PlotResponse getPlotInfo(String plotName, Integer accID) {
+    public PlotResponse getPlotInfo(String plotName, String accID) {
         try {
             return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/info?accID=" + accID), PlotResponse.class);
         } catch (RestClientException e) {
@@ -41,7 +41,7 @@ public class PlotAPI {
         }
     }
 
-    public PlotResponse terminate(String plotName, Integer accID) {
+    public PlotResponse terminate(String plotName, String accID) {
         try {
             return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/terminate?accID=" + accID), null, PlotResponse.class);
         } catch (RestClientException e) {
@@ -51,17 +51,15 @@ public class PlotAPI {
         }
     }
 
-    public PlotDataResponse status(String plotName, Integer pastHours, Integer accID) {
+    public PlotDataResponse status(String plotName, Integer pastHours, String accID) {
         try {
             return restTemplate.getForObject(
-                new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/status?hours=" + pastHours + "?accID=" + accID), 
+                new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/status?hours=" + pastHours + "&accID=" + accID), 
                 PlotDataResponse.class
             );
         } catch (RestClientException e) {
-            e.printStackTrace();
             return new PlotDataResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             return new PlotDataResponse("Error occured while making request", null);
         }
     }

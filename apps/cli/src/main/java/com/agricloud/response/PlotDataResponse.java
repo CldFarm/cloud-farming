@@ -1,5 +1,7 @@
 package com.agricloud.response;
 
+import java.util.List;
+
 import com.agricloud.entity.PlotData;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class PlotDataResponse {
     
     private String status;
-    private PlotData body;
+    private List<PlotData> body;
 
 }

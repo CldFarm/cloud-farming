@@ -2,6 +2,7 @@ package com.agricloud.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -75,7 +76,7 @@ public class PlotService {
 
         } catch (Exception e) {
 
-            response.setStatus("Error occured while saving plot");
+            response.setStatus("Error occured while retrieving plot");
 
         }
 
@@ -115,7 +116,7 @@ public class PlotService {
 
     }
 
-    public GeneralResponse status (Integer plotID, Integer pastHours, Integer userToken) {
+    public GeneralResponse status (String plotName, Integer pastHours, Integer userToken) {
 
         GeneralResponse response = new GeneralResponse();
 
@@ -124,6 +125,13 @@ public class PlotService {
             LocalDateTime currentDateTime = LocalDateTime.now();
             LocalDateTime oneHourAgo = currentDateTime.minusHours(pastHours);
             Date hoursAgo = Date.from(oneHourAgo.atZone(ZoneId.systemDefault()).toInstant());
+
+            Integer plotID = plotRepository.findPlotModelByAccountIDAndPlotName(userToken, plotName).map((plot) -> plot.getPlotID()).orElse(null);
+
+            if (plotID == null) {
+                response.setStatus("Plot doesn't exist with plot name: " + plotName);
+                response.setBody(new ArrayList<PlotDataModel>());
+            }
 
             response.setBody(plotDataRepository.getPlotDataForPastHours(plotID, hoursAgo));
             response.setStatus("Succesfully retrieved plot data");
@@ -150,6 +158,7 @@ public class PlotService {
                     plotDataModel.setGrowthPercent(getRandomPerc());
                     plotDataModel.setSunlight(getRandomPerc());
                     plotDataModel.setSoilMoisture(getRandomPerc());
+                    plotDataModel.setTimeTaken(new Date());
     
                     plotDataRepository.save(plotDataModel);
                 }

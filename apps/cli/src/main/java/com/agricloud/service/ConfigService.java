@@ -29,7 +29,7 @@ public class ConfigService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
                 .map(
-                        (body) -> "\n\nConfig Details:" + body.toString()
+                        (body) -> "\n\nConfig Details:\n" + body.toString()
                 ).orElse("");
     }
 
@@ -48,7 +48,7 @@ public class ConfigService {
         ConfigResponse response = configAPI.info(id);
         return response.getStatus() + Optional.ofNullable(response.getBody())
                 .map(
-                        (body) -> "\n\nConfig Details:" + body.toString()
+                        (body) -> "\n\nConfig Details:\n" + body.toString()
                 ).orElse("");
     }
 
@@ -56,7 +56,7 @@ public class ConfigService {
         ConfigResponse response = configAPI.delete(id);
         return response.getStatus() + Optional.ofNullable(response.getBody())
                 .map(
-                        (body) -> "\n\nConfig Details:" + body.toString()
+                        (body) -> "\n\nConfig Details:\n" + body.toString()
                 ).orElse("");
     }
 
@@ -76,7 +76,7 @@ public class ConfigService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
                 .map(
-                        (body) -> "\n\nConfig Details:" + body.toString()
+                        (body) -> "\n\nConfig Details:\n" + body.toString()
                 ).orElse("");
     }
 }

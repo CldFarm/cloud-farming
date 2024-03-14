@@ -8,8 +8,6 @@ import org.springframework.shell.standard.ShellOption;
 import org.springframework.shell.standard.ShellMethodAvailability;
 import org.springframework.shell.Availability;
 
-import com.agricloud.commands.AuthCommands;
-
 import com.agricloud.service.PlotService;
 import com.agricloud.context.UserContext;
 
@@ -29,38 +27,34 @@ public class PlotCommands extends AbstractShellComponent {
         @ShellOption(value = "desc", help = "Description of the plot") String description,
         @ShellOption(value = "grow-zone", help = "Grow Zone where the plot will be provisioned") int growZone, 
         @ShellOption(value = "plot-type", help = "Type of plot") int plotTypeID,
-        @ShellOption(value = "config", help = "Config connected to the plot")  int configID,
-        @ShellOption(value = "acc-id", help = "Acc ID") int accID
+        @ShellOption(value = "config", help = "Config connected to the plot")  int configID
     ) {
-        return plotService.createPlot(plotName, description, growZone, plotTypeID, configID, accID);
+        return plotService.createPlot(plotName, description, growZone, plotTypeID, configID);
     } 
 
     @ShellMethod(key = "plot info", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String getPlotInfo(
-        @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
-        @ShellOption(value = "acc-id", help = "Acc ID") int accID
+        @ShellOption(value = "plot-name", help = "Plot Name") String plotName
     ) {
-        return plotService.getPlotInfo(plotName, accID);        
+        return plotService.getPlotInfo(plotName);        
     } 
 
     @ShellMethod(key = "plot terminate", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String terminatePlot(
-        @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
-        @ShellOption(value = "acc-id", help = "Acc ID") int accID
+        @ShellOption(value = "plot-name", help = "Plot Name") String plotName
     ) {
-        return plotService.terminate(plotName, accID);
+        return plotService.terminate(plotName);
     } 
 
     @ShellMethod(key = "plot status", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String getPlotStatus(
         @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
-        @ShellOption(value = "acc-id", help = "Acc ID") int accID,
         @ShellOption(value = "hours", help = "How many hours of plot data from current time") int pastHours
     ) {
-        return plotService.plotStatus(plotName, accID, pastHours);
+        return plotService.plotStatus(plotName, pastHours);
     } 
 
     public Availability availabilityCheck() {

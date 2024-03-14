@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.agricloud.api.PlotAPI;
 import com.agricloud.entity.Plot;
+import com.agricloud.entity.PlotData;
 import com.agricloud.response.PlotDataResponse;
 import com.agricloud.response.PlotResponse;
 import com.agricloud.context.UserContext;
@@ -25,19 +26,17 @@ public class PlotService {
         String description,
         Integer growZone, 
         Integer plotTypeID,
-        Integer configID,
-        Integer accID
+        Integer configID
     ) {
         Plot newPlot = new Plot();
         newPlot.setPlotName(plotName);
         newPlot.setDescription(description);
-        newPlot.setAccountID(Integer.parseInt(userContext.getLoggedInUser()));
         newPlot.setGrowZoneID(growZone);
         newPlot.setPlotTypeID(plotTypeID);
         newPlot.setConfigID(configID);
         newPlot.setTerminated(false);
 
-        PlotResponse response = plotAPI.createPlot(newPlot, accID);
+        PlotResponse response = plotAPI.createPlot(newPlot, userContext.getLoggedInUser());
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -46,10 +45,9 @@ public class PlotService {
         }
 
     public String getPlotInfo(
-        String plotName,
-        Integer accID
+        String plotName
     ) {
-        PlotResponse response = plotAPI.getPlotInfo(plotName, accID);
+        PlotResponse response = plotAPI.getPlotInfo(plotName, userContext.getLoggedInUser());
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -59,10 +57,9 @@ public class PlotService {
     }
 
     public String terminate(
-        String plotName,
-        Integer accID
+        String plotName
     ) {
-        PlotResponse response = plotAPI.terminate(plotName, accID);
+        PlotResponse response = plotAPI.terminate(plotName, userContext.getLoggedInUser());
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -73,15 +70,19 @@ public class PlotService {
 
     public String plotStatus(
         String plotName,
-        Integer pastHours,
-        Integer accID
+        Integer pastHours
     ) {
-        PlotDataResponse response = plotAPI.status(plotName, pastHours, accID);
+        PlotDataResponse response = plotAPI.status(plotName, pastHours, userContext.getLoggedInUser());
 
-        return response.getStatus() + Optional.ofNullable(response.getBody())
-            .map(
-                (body) -> "\n\nPlot Logs for Past " + pastHours + " Hours:\n" + body.toString()
-            ).orElse("");
+        String out = response.getStatus() + "\n\nPlot Logs for Past " + pastHours + " Hours:\n";
+
+        out += "[\n";
+        for (PlotData plotData : response.getBody()) {
+            out += plotData.toString() + ",\n";
+        }
+        out += "]";
+
+        return out;
     
     }
     
