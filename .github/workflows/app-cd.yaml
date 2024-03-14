@@ -32,7 +32,46 @@ jobs:
   #     if: startsWith(github.ref, 'refs/tags/')
   #     with:
   #       files: ./apps/cli/build/libs/api
-
+  zip_jar_with_jdk:
+    runs-on: ${{matrix.platform}}
+ 
+    strategy:
+      matrix:
+        platform: [windows-latest, ubuntu-latest, macos-latest]
+ 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+ 
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        java-package: jdk
+ 
+    - name: Build JAR
+      working-directory: ./apps/cli
+      run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
+ 
+    - name: Determine OS specific commands
+      run: |
+        if [ ${{ matrix.platform }} == 'windows-latest' ]; then
+          ZIP_COMMAND="zip"
+        else
+          ZIP_COMMAND="tar -czf"
+        fi
+ 
+    - name: Zip JAR with JDK for ${{ matrix.platform }}
+      run: |
+        mkdir -p zipped_jars
+        $ZIP_COMMAND zipped_jars/${{ matrix.platform }}.zip ./apps/cli/build/libs/cli-0.0.1-SNAPSHOT.jar $JAVA_HOME
+ 
+    - name: Upload zipped JAR artifact for ${{ matrix.platform }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: cli_${{ matrix.platform }}
+        path: zipped_jars
 
   api-deploy:
     name: API Deploy
