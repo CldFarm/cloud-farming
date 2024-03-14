@@ -34,12 +34,7 @@ public class PlotCommands extends AbstractShellComponent {
         @ShellOption(value = "plot-type", help = "Type of plot") int plotTypeID,
         @ShellOption(value = "config", help = "Config connected to the plot")  int configID
     ) {
-        if (userContext.getLoggedInUser()!=null) {
-            return plotService.createPlot(plotName, description, growZone, plotTypeID, configID);
-        } else {
-            authCommands.login();
-            return "login before creating a plot";
-        }
+        return plotService.createPlot(plotName, description, growZone, plotTypeID, configID);
     } 
 
     @ShellMethod(key = "plot info", value = "test command")
@@ -47,13 +42,7 @@ public class PlotCommands extends AbstractShellComponent {
     public String getPlotInfo(
         @ShellOption(value = "plot-id", help = "Plot ID") int plotID
     ) {
-        if (userContext.getLoggedInUser()!=null) {
-            return plotService.getPlotInfo(plotID);
-        } else {
-            authCommands.login();
-            return "login before creating a plot";
-        }
-        
+        return plotService.getPlotInfo(plotID);        
     } 
 
     @ShellMethod(key = "plot terminate", value = "test command")
