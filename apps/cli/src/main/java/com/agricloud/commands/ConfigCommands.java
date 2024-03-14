@@ -2,10 +2,8 @@ package com.agricloud.commands;
 
 import com.agricloud.service.ConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.shell.standard.AbstractShellComponent;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellOption;
+import org.springframework.shell.component.ConfirmationInput;
+import org.springframework.shell.standard.*;
 
 import java.math.BigDecimal;
 
@@ -16,7 +14,7 @@ public class ConfigCommands extends AbstractShellComponent {
     ConfigService configService;
 
     @ShellMethod(key = "config create", value = "Create config")
-    public String createPlot(
+    public String configCreate(
             @ShellOption(value = "name", help = "Name of the config") String configName,
             @ShellOption(value = "desc", help = "Description of the config") String description,
             @ShellOption(value = "fertilizer-type", help = "Fertilizer used in the Config") int fertilizerTypeID,
@@ -26,9 +24,32 @@ public class ConfigCommands extends AbstractShellComponent {
     }
 
     @ShellMethod(key = "config list", value = "List your available configs")
-    public String listPlots(
+    public String configsUserList(
             @ShellOption(value = "id", help = "List available configs for the given user") int id
     ) {
         return configService.listAllFromId(id);
     }
+
+    @ShellMethod(key = "config info", value = "Get information about a config")
+    public String configInfo(
+            @ShellOption int id
+    ) {
+        return configService.infoConfig(id);
+    }
+
+    @ShellMethod(key = "config delete", value = "Delete a config")
+    public String configDelete(
+            @ShellOption int id
+    ) {
+
+        ConfirmationInput component = new ConfirmationInput(getTerminal(), "Confirm deletion of config " + id + ":");
+        component.setResourceLoader(getResourceLoader());
+        component.setTemplateExecutor(getTemplateExecutor());
+        ConfirmationInput.ConfirmationInputContext context = component.run(ConfirmationInput.ConfirmationInputContext.empty());
+        if (context.getResultValue()) {
+            return configService.deleteConfig(id);
+        }
+        return "";
+    }
+
 }

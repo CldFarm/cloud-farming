@@ -4,7 +4,6 @@ import com.agricloud.api.ConfigAPI;
 import com.agricloud.entity.Config;
 import com.agricloud.response.ConfigListResponse;
 import com.agricloud.response.ConfigResponse;
-import com.agricloud.response.PlotResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +41,22 @@ public class ConfigService {
                                 body.stream()
                                         .map((config -> config.getConfigID() + " - " + config.getConfigName()))
                                         .collect(Collectors.joining("\n"))
+                ).orElse("");
+    }
+
+    public String infoConfig(int id) {
+        ConfigResponse response = configAPI.info(id);
+        return response.getStatus() + Optional.ofNullable(response.getBody())
+                .map(
+                        (body) -> "\n\nConfig Details:" + body.toString()
+                ).orElse("");
+    }
+
+    public String deleteConfig(int id) {
+        ConfigResponse response = configAPI.delete(id);
+        return response.getStatus() + Optional.ofNullable(response.getBody())
+                .map(
+                        (body) -> "\n\nConfig Details:" + body.toString()
                 ).orElse("");
     }
 }

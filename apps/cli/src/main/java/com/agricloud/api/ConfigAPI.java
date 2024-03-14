@@ -33,7 +33,7 @@ public class ConfigAPI {
 
     public ConfigResponse info (@PathVariable(value = "id") Integer configID) {
         try {
-            return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/configs/info" + configID), ConfigResponse.class);
+            return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/configs/" + configID + "/info"), ConfigResponse.class);
         } catch (RestClientException e) {
             return new ConfigResponse("Rest Error occured while making request", null);
         } catch (URISyntaxException e) {
