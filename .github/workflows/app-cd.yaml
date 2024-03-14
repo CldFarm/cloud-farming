@@ -39,6 +39,8 @@ jobs:
       run: |
         aws s3api get-object --bucket beanfarm-packaging-bucket --key packaging.zip packaging.zip
         unzip packaging.zip
+        chmod -R +x cli-linux-x64
+        chmod -R +x cli-macos-x64
 
         for i in $(find . -type d -name "cli-*"); do
           cp *.jar $i 
@@ -59,7 +61,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: latest
-        release_name: cli latest
+        release_name: cli
         body: |
           Packaged CLI
         draft: false

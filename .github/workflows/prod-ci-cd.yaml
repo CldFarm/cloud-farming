@@ -14,14 +14,14 @@ env:
   terraform_directory: './terraform'
 
 jobs:
-  # prod-ci:
-  #   name: "Prod CI"
-  #   uses: ./.github/workflows/prod-ci.yaml
-  #   secrets: inherit
+  prod-ci:
+    name: "Prod CI"
+    uses: ./.github/workflows/prod-ci.yaml
+    secrets: inherit
 
   terraform-apply:
     name: "Terraform apply"
-    # needs: prod-ci
+    needs: prod-ci
     secrets: inherit
     uses: ./.github/workflows/terraform-cd.yaml
 
