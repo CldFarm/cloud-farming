@@ -72,7 +72,7 @@ public class PlotService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
-                (body) -> "\n\nPlot Details:\n" + body.toString()
+                (body) -> "\n\nPlot Logs for Past " + pastHours + " Hours:\n" + body.toString()
             ).orElse("");
     
     }

@@ -142,19 +142,19 @@ public class PlotService {
     @Scheduled(cron = "0 */30 * * * *") // Run every 30 minutes
     private void trackPlotData() {
 
-        Iterable<PlotModel> plots = plotRepository.findAll();
-
-        for (PlotModel plot : plots) {
-            
-            PlotDataModel plotDataModel = new PlotDataModel();
-            plotDataModel.setPlotID(plot.getPlotID());
-            plotDataModel.setGrowthPercent(getRandomPerc());
-            plotDataModel.setSunlight(getRandomPerc());
-            plotDataModel.setSoilMoisture(getRandomPerc());
-
-            plotDataRepository.save(plotDataModel);
-
-        }
+        plotRepository.findAll().forEach(
+            (plot) -> {
+                if (!plot.getTerminated()) {
+                    PlotDataModel plotDataModel = new PlotDataModel();
+                    plotDataModel.setPlotID(plot.getPlotID());
+                    plotDataModel.setGrowthPercent(getRandomPerc());
+                    plotDataModel.setSunlight(getRandomPerc());
+                    plotDataModel.setSoilMoisture(getRandomPerc());
+    
+                    plotDataRepository.save(plotDataModel);
+                }
+            }
+        );
 
     }
 
