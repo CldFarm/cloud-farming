@@ -24,9 +24,9 @@ public class ConfigService {
             Iterable<ConfigModel> configs = configRepository.findAllByAccountIDOrAccountIDIsNull(accountID);
 
             response.setBody(configs);
-            response.setStatus("Success");
+            response.setStatus("Retrieved user configs");
         } catch (Exception e) {
-            response.setStatus("Failure");
+            response.setStatus("Failed to retrieve user configs");
         }
         return response;
     }
@@ -36,13 +36,13 @@ public class ConfigService {
         try {
             ConfigModel config = configRepository.findConfigByConfigID(configID);
             if (config == null) {
-                response.setStatus("Not Found");
+                response.setStatus("Found no config with that ID");
             } else {
-                response.setStatus("Found");
+                response.setStatus("Found config");
                 response.setBody(config);
             }
         } catch (Exception e) {
-            response.setStatus("FAILURE");
+            response.setStatus("Failed to get Config with ID" + configID);
         }
         return response;
     }
@@ -51,10 +51,10 @@ public class ConfigService {
         GeneralResponse response = new GeneralResponse();
         try {
             configRepository.save(config);
-            response.setStatus("Success");
+            response.setStatus("Created config successfully");
             response.setBody(config);
         } catch (Exception e) {
-            response.setStatus("FAILURE");
+            response.setStatus("Failed to create config");
             response.setBody(e);
         }
         return response;
@@ -65,7 +65,7 @@ public class ConfigService {
         try {
             ConfigModel config = configRepository.findConfigByConfigID(configID);
             if (config == null) {
-                response.setStatus("Not Found");
+                response.setStatus("Could not find config to delete");
                 return response;
             }
 
@@ -74,14 +74,14 @@ public class ConfigService {
 
             // Ensure config isn't in use.
             if (!plotRepository.findPlotModelsByConfigID(configID).isEmpty()) {
-                response.setStatus("Config in Use");
+                response.setStatus("Config in use");
             } else {
                 configRepository.delete(config);
-                response.setStatus("Deleted");
+                response.setStatus("Deleted config successfully");
                 response.setBody(config);
             }
         } catch (Exception e) {
-            response.setStatus("FAILURE");
+            response.setStatus("Failed to delete config");
         }
         return response;
     }
@@ -91,15 +91,15 @@ public class ConfigService {
         try {
             Optional<ConfigModel> config2 = configRepository.findById(config.getConfigID());
             if (config2.isEmpty()) {
-                response.setStatus("NOT FOUND");
+                response.setStatus("Could not find config to edit");
                 response.setBody(config);
             } else {
                 configRepository.save(config);
-                response.setStatus("Success");
+                response.setStatus("Successfully edited config");
                 response.setBody(config);
             }
         } catch (Exception e) {
-            response.setStatus("FAILURE");
+            response.setStatus("Failed to edit config");
             response.setBody(e);
         }
         return response;
