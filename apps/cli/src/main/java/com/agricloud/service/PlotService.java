@@ -9,10 +9,14 @@ import com.agricloud.api.PlotAPI;
 import com.agricloud.entity.Plot;
 import com.agricloud.response.GeneralResponse;
 import com.agricloud.response.PlotResponse;
+import com.agricloud.context.UserContext;
 
 @Service
 public class PlotService {
     
+    @Autowired
+    private UserContext userContext;
+
     @Autowired
     private PlotAPI plotAPI;
 
@@ -26,7 +30,7 @@ public class PlotService {
         Plot newPlot = new Plot();
         newPlot.setPlotName(plotName);
         newPlot.setDescription(description);
-        newPlot.setAccountID(1);
+        newPlot.setAccountID(Integer.parseInt(userContext.getLoggedInUser()));
         newPlot.setGrowZoneID(growZone);
         newPlot.setPlotTypeID(plotTypeID);
         newPlot.setConfigID(configID);
