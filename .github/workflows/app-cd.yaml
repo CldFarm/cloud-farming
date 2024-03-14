@@ -35,7 +35,7 @@ jobs:
       run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
 
     - name: Download CLI JDKs
-      working-directory: ./apps/api/build/libs
+      working-directory: ./apps/cli/build/libs
       run: |
         aws s3api get-object --bucket beanfarm-packaging-bucket --key packaging.zip packaging.zip
         unzip packaging.zip
