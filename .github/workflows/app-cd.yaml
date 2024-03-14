@@ -9,30 +9,51 @@ permissions:
   id-token: write
 
 jobs:
-  # cli-release:
-  #   name: CLI Release
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout Repository
-  #     uses: actions/checkout@v4
+  cli-release:
+    name: CLI Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-  #   - name: Setup Java JDK
-  #     uses: actions/setup-java@v4
-  #     with:
-  #       distribution: 'temurin'
-  #       java-version: '21'
-  #       java-package: jdk
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{secrets.AWS_ASSUME_ROLE}}
+        aws-region: "eu-west-1"
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        java-package: jdk
     
-  #   - name: Build CLI
-  #     working-directory: ./apps/cli
-  #     run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
+    - name: Build CLI
+      working-directory: ./apps/cli
+      run: ./gradlew -q assemble #Can ignore tests now - ran the ci pipeline as a pre-req
 
-  #   - name: Create Release
-  #     uses: softprops/action-gh-release@v2
-  #     if: startsWith(github.ref, 'refs/tags/')
-  #     with:
-  #       files: ./apps/cli/build/libs/api
+    - name: Download CLI JDKs
+      working-directory: ./apps/api/build/libs
+      run: |
+        aws s3api get-object --bucket beanfarm-packaging-bucket --key packaging.zip packaging.zip
+        unzip packaging.zip
 
+        for i in $(find . -type d -name "cli-*"); do
+          cp *.jar $i 
+        done
+        zip -r cli-windows-x64.zip cli-windows-x64/*
+        tar -czvf cli-macos-x64.tar.gz cli-macos-x64
+        tar -czvf cli-linux-x64.tar.gz cli-linux-x64
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: releases
+        path: |
+          *.zip
+          *.tar.gz
 
   api-deploy:
     name: API Deploy
