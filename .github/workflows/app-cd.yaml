@@ -49,12 +49,11 @@ jobs:
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
-      working-directory: ./apps/cli/build/libs
       with:
         name: releases
         path: |
-          *.zip
-          *.tar.gz
+          ./apps/cli/build/libs/*.zip
+          ./apps/cli/build/libs/*.tar.gz
 
   api-deploy:
     name: API Deploy
