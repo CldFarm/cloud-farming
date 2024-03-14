@@ -1,6 +1,8 @@
 package com.agricloud.commands;
 
 import com.agricloud.config.ApiConfig;
+import com.agricloud.context.UserContext;
+import com.agricloud.controller.AuthController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.AbstractShellComponent;
 import org.springframework.shell.standard.ShellComponent;
@@ -19,18 +21,29 @@ public class AuthCommands extends AbstractShellComponent {
 
     private RestTemplate restTemplate = new RestTemplate();
 
+    @Autowired
+    AuthController authController;
+
+    @Autowired
+    private UserContext userContext;
+
     @ShellMethod("Login")
     public void login() {
         try {
             // Construct the URI for the login endpoint
 //            URI loginUri = new URI(apiConfig.getEndpoint() + "/oauth2/authorization/cognito");
-            URI loginUri = new URI("http://localhost:5000/oauth2/authorization/cognito");
-            // Open the URI in a browser window
-           ;
+            URI loginUri = new URI("http://localhost:55555");
 
             System.out.println("Follow this link to login "+loginUri);
+
+            while(userContext.getLoggedInUser()==""||userContext.getLoggedInUser()==null){}
+
+            System.out.println("logged in as "+userContext.getLoggedInUser());
+
         } catch (URISyntaxException | RestClientException e) {
             System.err.println("Failed to initiate login: " + e.getMessage());
         }
     }
+
 }
+
