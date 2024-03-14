@@ -24,7 +24,7 @@ public class AuthController {
     public String welcome(Principal principal){
         loggedInUser = principal.getName();
         userContext.setLoggedInUser(loggedInUser);
-        return "Welcome " + loggedInUser;
+        return "<h1>Login successful, you may return to the cli</h1>";
     }
 
     @GetMapping("/user")
