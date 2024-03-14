@@ -34,13 +34,11 @@ public class ConfigService {
     public GeneralResponse getConfigById(Integer configID) {
         GeneralResponse response = new GeneralResponse();
         try {
-            ConfigModel config = configRepository.findConfigByConfigID(configID);
-            if (config == null) {
-                response.setStatus("Found no config with that ID");
-            } else {
+            Optional<ConfigModel> configOptional = configRepository.findById(configID);
+            configOptional.ifPresentOrElse(config -> {
                 response.setStatus("Found config");
                 response.setBody(config);
-            }
+            }, () -> response.setStatus("Found no config with that ID"));
         } catch (Exception e) {
             response.setStatus("Failed to get Config with ID" + configID);
         }
@@ -63,23 +61,20 @@ public class ConfigService {
     public GeneralResponse deleteConfig(Integer configID) {
         GeneralResponse response = new GeneralResponse();
         try {
-            ConfigModel config = configRepository.findConfigByConfigID(configID);
-            if (config == null) {
-                response.setStatus("Could not find config to delete");
-                return response;
-            }
+            Optional<ConfigModel> configOptional = configRepository.findById(configID);
+            configOptional.ifPresentOrElse(config -> {
+                // TODO: Propagate changes to Plots using this plot to revert to defaultconfig
+                // TODO: Check that the config isn't in use as a defaultconfig
 
-            // TODO: Propagate changes to Plots using this plot to revert to defaultconfig
-            // TODO: Check that the config isn't in use as a defaultconfig
-
-            // Ensure config isn't in use.
-            if (!plotRepository.findPlotModelsByConfigID(configID).isEmpty()) {
-                response.setStatus("Config in use");
-            } else {
-                configRepository.delete(config);
-                response.setStatus("Deleted config successfully");
-                response.setBody(config);
-            }
+                // Ensure config isn't in use.
+                if (!plotRepository.findPlotModelsByConfigID(configID).isEmpty()) {
+                    response.setStatus("Config in use");
+                } else {
+                    configRepository.delete(config);
+                    response.setStatus("Deleted config successfully");
+                    response.setBody(config);
+                }
+            }, () -> response.setStatus("Could not find config to delete"));
         } catch (Exception e) {
             response.setStatus("Failed to delete config");
         }
@@ -89,15 +84,15 @@ public class ConfigService {
     public GeneralResponse editConfig(ConfigModel config) {
         GeneralResponse response = new GeneralResponse();
         try {
-            Optional<ConfigModel> config2 = configRepository.findById(config.getConfigID());
-            if (config2.isEmpty()) {
-                response.setStatus("Could not find config to edit");
-                response.setBody(config);
-            } else {
+            Optional<ConfigModel> config2Optional = configRepository.findById(config.getConfigID());
+            config2Optional.ifPresentOrElse(config2 -> {
                 configRepository.save(config);
                 response.setStatus("Successfully edited config");
                 response.setBody(config);
-            }
+            }, () -> {
+                response.setStatus("Could not find config to edit");
+                response.setBody(config);
+            });
         } catch (Exception e) {
             response.setStatus("Failed to edit config");
             response.setBody(e);
