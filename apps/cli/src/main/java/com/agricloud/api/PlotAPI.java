@@ -24,10 +24,8 @@ public class PlotAPI {
         try {
             return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/create"), plot, PlotResponse.class);
         } catch (RestClientException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         }
     }    
@@ -36,10 +34,8 @@ public class PlotAPI {
         try {
             return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/info"), PlotResponse.class);
         } catch (RestClientException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         }
     }
@@ -48,10 +44,8 @@ public class PlotAPI {
         try {
             return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/terminate"), null, PlotResponse.class);
         } catch (RestClientException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             return new PlotResponse("Error occured while making request", null);
         }
     }
