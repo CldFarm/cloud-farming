@@ -31,7 +31,7 @@ public class AuthCommands extends AbstractShellComponent {
     @ShellMethod(key = "login", value = "test command")
     public void login() {
         try {
-            
+
             URI loginUri = new URI("http://localhost:55555");
 
             System.out.println("Follow this link to login "+loginUri);
@@ -42,12 +42,6 @@ public class AuthCommands extends AbstractShellComponent {
         }
     }
 
-    @ShellMethod(key = "loggedIn", value = "test command")
-    public void logggedIn() {
-
-        System.out.println(userContext.getLoggedInUser());
-
-    }
 
 }
 
