@@ -4,4 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.agricloud.model.PlotModel;
 
-public interface PlotRepository extends CrudRepository<PlotModel, Integer> {}
+import java.util.List;
+
+public interface PlotRepository extends CrudRepository<PlotModel, Integer> {
+
+    List<PlotModel> findPlotModelsByConfigID(Integer configID);
+}
