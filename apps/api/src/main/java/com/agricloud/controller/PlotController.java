@@ -15,16 +15,20 @@ public class PlotController {
     private PlotService plotService;
     
     @GetMapping("/{name}/info")
-    public GeneralResponse info (@PathVariable(value = "name") int plotID) {
-        return plotService.info(plotID);
+    public GeneralResponse info (
+        @PathVariable(value = "name") String plotName,
+        @RequestParam(value = "accID") int accID
+    ) {
+        return plotService.info(plotName, accID);
     }
 
     @GetMapping("/{name}/status")
     public GeneralResponse logs (
         @PathVariable(value = "name") int plotID, 
-        @RequestParam(value = "hours", defaultValue = "1") int pastHours
+        @RequestParam(value = "hours", defaultValue = "1") int pastHours,
+        @RequestParam(value = "accID") int accID
     ) {
-        return plotService.status(plotID, pastHours);
+        return plotService.status(plotID, pastHours, accID);
     }
     
     @PostMapping("/create")
@@ -33,13 +37,11 @@ public class PlotController {
     }
 
     @PostMapping("/{name}/terminate") 
-    public GeneralResponse terminate (@PathVariable(value = "name") int plotID) {
-        return plotService.terminate(plotID);
-    }
-
-    @PostMapping("edit")
-    public GeneralResponse putMethodName(@RequestBody String entity) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    public GeneralResponse terminate (
+        @PathVariable(value = "name") String plotName,
+        @PathVariable(value = "accID") int accID
+    ) {
+        return plotService.terminate(plotName, accID);
     }
     
 }

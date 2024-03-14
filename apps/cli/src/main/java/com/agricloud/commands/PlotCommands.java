@@ -22,9 +22,6 @@ public class PlotCommands extends AbstractShellComponent {
     @Autowired
     private UserContext userContext;
 
-    @Autowired
-    private AuthCommands authCommands;
-
     @ShellMethod(key = "plot create", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String createPlot(
@@ -32,25 +29,38 @@ public class PlotCommands extends AbstractShellComponent {
         @ShellOption(value = "desc", help = "Description of the plot") String description,
         @ShellOption(value = "grow-zone", help = "Grow Zone where the plot will be provisioned") int growZone, 
         @ShellOption(value = "plot-type", help = "Type of plot") int plotTypeID,
-        @ShellOption(value = "config", help = "Config connected to the plot")  int configID
+        @ShellOption(value = "config", help = "Config connected to the plot")  int configID,
+        @ShellOption(value = "acc-id", help = "Acc ID") int accID
     ) {
-        return plotService.createPlot(plotName, description, growZone, plotTypeID, configID);
+        return plotService.createPlot(plotName, description, growZone, plotTypeID, configID, accID);
     } 
 
     @ShellMethod(key = "plot info", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String getPlotInfo(
-        @ShellOption(value = "plot-id", help = "Plot ID") int plotID
+        @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
+        @ShellOption(value = "acc-id", help = "Acc ID") int accID
     ) {
-        return plotService.getPlotInfo(plotID);        
+        return plotService.getPlotInfo(plotName, accID);        
     } 
 
     @ShellMethod(key = "plot terminate", value = "test command")
     @ShellMethodAvailability("availabilityCheck")
     public String terminatePlot(
-        @ShellOption(value = "plot-id", help = "Plot ID") int plotID
+        @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
+        @ShellOption(value = "acc-id", help = "Acc ID") int accID
     ) {
-        return plotService.terminate(plotID);
+        return plotService.terminate(plotName, accID);
+    } 
+
+    @ShellMethod(key = "plot status", value = "test command")
+    @ShellMethodAvailability("availabilityCheck")
+    public String getPlotStatus(
+        @ShellOption(value = "plot-name", help = "Plot Name") String plotName,
+        @ShellOption(value = "acc-id", help = "Acc ID") int accID,
+        @ShellOption(value = "hours", help = "How many hours of plot data from current time") int pastHours
+    ) {
+        return plotService.plotStatus(plotName, accID, pastHours);
     } 
 
     public Availability availabilityCheck() {
@@ -62,12 +72,5 @@ public class PlotCommands extends AbstractShellComponent {
         ? Availability.available()
         : Availability.unavailable("You are not logged in, use login command to login");
     }
-    @ShellMethod(key = "plot status", value = "test command")
-    public String getPlotStatus(
-        @ShellOption(value = "plot-id", help = "Plot ID") int plotID,
-        @ShellOption(value = "hours", help = "How many hours of plot data from current time") int pastHours
-    ) {
-        return plotService.plotStatus(plotID, pastHours);
-    } 
 
 }

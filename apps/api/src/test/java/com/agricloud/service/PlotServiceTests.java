@@ -13,18 +13,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.agricloud.model.PlotModel;
+import com.agricloud.repository.PlotDataRepository;
 import com.agricloud.repository.PlotRepository;
 import com.agricloud.response.GeneralResponse;
 
 public class PlotServiceTests {
     
     private PlotRepository plotRepository;
+    private PlotDataRepository plotDataRepository;
     private PlotService plotService;
 
     @BeforeEach
     void setUp() {
         plotRepository = mock(PlotRepository.class);
-        plotService = new PlotService(plotRepository);
+        plotDataRepository = mock(PlotDataRepository.class);
+        plotService = new PlotService(plotRepository, plotDataRepository);
     }
 
     @Test
@@ -161,5 +164,7 @@ public class PlotServiceTests {
         verifyNoMoreInteractions(plotRepository);
         assertEquals("Error occured while saving plot", response.getStatus());
     }
+
+    
 
 }

@@ -5,7 +5,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,14 @@ import com.agricloud.response.GeneralResponse;
 @Service
 public class PlotService {
 
-    @Autowired
-    private PlotRepository plotRepository;
+    private final PlotRepository plotRepository;
 
-    @Autowired
-    private PlotDataRepository plotDataRepository;
+    private final PlotDataRepository plotDataRepository;
+
+    public PlotService(PlotRepository plotRepository, PlotDataRepository plotDataRepository) {
+        this.plotDataRepository = plotDataRepository;
+        this.plotRepository = plotRepository;
+    }
 
     public GeneralResponse create (PlotModel plot) {
 
@@ -54,21 +56,20 @@ public class PlotService {
 
     }
 
-    @SuppressWarnings("null")
-    public GeneralResponse info (Integer plotID) {
+    public GeneralResponse info (String plotName, Integer userToken) {
         
         GeneralResponse response = new GeneralResponse();
 
         try {
 
-            plotRepository.findById(plotID)
+            plotRepository.findPlotModelByAccountIDAndPlotName(userToken, plotName)
                 .ifPresentOrElse(
                     (plot) -> {
                         response.setBody(plot);
                         response.setStatus("Successfully retrieved plot");
                     }, 
                     () -> {
-                        response.setStatus("Plot doesn't exist with ID " + plotID);
+                        response.setStatus("Plot doesn't exist with name " + plotName);
                     }
                 );
 
@@ -82,14 +83,13 @@ public class PlotService {
 
     }
 
-    @SuppressWarnings("null")
-    public GeneralResponse terminate (Integer plotID) {
+    public GeneralResponse terminate (String plotName, Integer userToken) {
 
         GeneralResponse response = new GeneralResponse();
 
         try {
 
-            plotRepository.findById(plotID)
+            plotRepository.findPlotModelByAccountIDAndPlotName(userToken, plotName)
                 .ifPresentOrElse(
                     (plot) -> {
 
@@ -101,7 +101,7 @@ public class PlotService {
 
                     }, 
                     () -> {
-                        response.setStatus("Plot doesn't exist with plotid: " + plotID);
+                        response.setStatus("Plot doesn't exist with plot name: " + plotName);
                     }
                 );
 
@@ -115,7 +115,7 @@ public class PlotService {
 
     }
 
-    public GeneralResponse status (Integer plotID, Integer pastHours) {
+    public GeneralResponse status (Integer plotID, Integer pastHours, Integer userToken) {
 
         GeneralResponse response = new GeneralResponse();
 

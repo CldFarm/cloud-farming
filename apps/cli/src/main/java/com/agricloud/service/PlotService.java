@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.agricloud.api.PlotAPI;
 import com.agricloud.entity.Plot;
-import com.agricloud.response.GeneralResponse;
+import com.agricloud.response.PlotDataResponse;
 import com.agricloud.response.PlotResponse;
 import com.agricloud.context.UserContext;
 
@@ -25,7 +25,8 @@ public class PlotService {
         String description,
         Integer growZone, 
         Integer plotTypeID,
-        Integer configID
+        Integer configID,
+        Integer accID
     ) {
         Plot newPlot = new Plot();
         newPlot.setPlotName(plotName);
@@ -36,7 +37,7 @@ public class PlotService {
         newPlot.setConfigID(configID);
         newPlot.setTerminated(false);
 
-        PlotResponse response = plotAPI.createPlot(newPlot);
+        PlotResponse response = plotAPI.createPlot(newPlot, accID);
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -45,9 +46,10 @@ public class PlotService {
         }
 
     public String getPlotInfo(
-        Integer plotID
+        String plotName,
+        Integer accID
     ) {
-        PlotResponse response = plotAPI.getPlotInfo(plotID);
+        PlotResponse response = plotAPI.getPlotInfo(plotName, accID);
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -57,9 +59,10 @@ public class PlotService {
     }
 
     public String terminate(
-        Integer plotID
+        String plotName,
+        Integer accID
     ) {
-        PlotResponse response = plotAPI.terminate(plotID);
+        PlotResponse response = plotAPI.terminate(plotName, accID);
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
@@ -69,10 +72,11 @@ public class PlotService {
     }
 
     public String plotStatus(
-        Integer plotID,
-        Integer pastHours
+        String plotName,
+        Integer pastHours,
+        Integer accID
     ) {
-        GeneralResponse response = plotAPI.status(plotID, pastHours);
+        PlotDataResponse response = plotAPI.status(plotName, pastHours, accID);
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(

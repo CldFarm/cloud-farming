@@ -1,5 +1,7 @@
 package com.agricloud.response;
 
+import com.agricloud.entity.PlotData;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeneralResponse {
+public class PlotDataResponse {
     
     private String status;
-    private Object body;
-    
+    private PlotData body;
+
 }

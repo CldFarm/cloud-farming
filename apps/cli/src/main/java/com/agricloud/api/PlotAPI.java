@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.agricloud.config.ApiConfig;
 import com.agricloud.entity.Plot;
-import com.agricloud.response.GeneralResponse;
+import com.agricloud.response.PlotDataResponse;
 import com.agricloud.response.PlotResponse;
 
 @Repository
@@ -21,9 +21,9 @@ public class PlotAPI {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public PlotResponse createPlot(Plot plot) {
+    public PlotResponse createPlot(Plot plot, Integer accID) {
         try {
-            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/create"), plot, PlotResponse.class);
+            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + "/create?accID=" + accID), plot, PlotResponse.class);
         } catch (RestClientException e) {
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
@@ -31,9 +31,9 @@ public class PlotAPI {
         }
     }    
     
-    public PlotResponse getPlotInfo(Integer plotID) {
+    public PlotResponse getPlotInfo(String plotName, Integer accID) {
         try {
-            return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/info"), PlotResponse.class);
+            return restTemplate.getForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/info?accID=" + accID), PlotResponse.class);
         } catch (RestClientException e) {
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
@@ -41,9 +41,9 @@ public class PlotAPI {
         }
     }
 
-    public PlotResponse terminate(Integer plotID) {
+    public PlotResponse terminate(String plotName, Integer accID) {
         try {
-            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/terminate"), null, PlotResponse.class);
+            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/terminate?accID=" + accID), null, PlotResponse.class);
         } catch (RestClientException e) {
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
@@ -51,18 +51,18 @@ public class PlotAPI {
         }
     }
 
-    public GeneralResponse status(Integer plotID, Integer pastHours) {
+    public PlotDataResponse status(String plotName, Integer pastHours, Integer accID) {
         try {
             return restTemplate.getForObject(
-                new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/status?hours=" + pastHours), 
-                GeneralResponse.class
+                new URI(apiConfig.getEndpoint() + "/plot/" + plotName + "/status?hours=" + pastHours + "?accID=" + accID), 
+                PlotDataResponse.class
             );
         } catch (RestClientException e) {
             e.printStackTrace();
-            return new GeneralResponse("Error occured while making request", null);
+            return new PlotDataResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            return new GeneralResponse("Error occured while making request", null);
+            return new PlotDataResponse("Error occured while making request", null);
         }
     }
 
