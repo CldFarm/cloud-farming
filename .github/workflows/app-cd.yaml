@@ -46,14 +46,58 @@ jobs:
         zip -r cli-windows-x64.zip cli-windows-x64/*
         tar -czvf cli-macos-x64.tar.gz cli-macos-x64
         tar -czvf cli-linux-x64.tar.gz cli-linux-x64
-
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+  
+    - uses: cb80/delrel@latest
       with:
-        name: releases
-        path: |
-          ./apps/cli/build/libs/*.zip
-          ./apps/cli/build/libs/*.tar.gz
+        tag: latest
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: latest
+        release_name: cli latest
+        body: |
+          Packaged CLI
+        draft: false
+        prerelease: false
+
+    - name: Upload release asset (Windows)
+      id: upload-release-asset-win 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/cli/build/libs/cli-windows-x64.zip
+        asset_name: cli-windows-x64.zip
+        asset_content_type: application/zip
+
+    - name: Upload release asset (Linux)
+      id: upload-release-asset-linux
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/cli/build/libs/cli-linux-x64.tar.gz
+        asset_name: cli-linux-x64.tar.gz
+        asset_content_type: application/tar.gz
+
+    - name: Upload linux release asset (MacOS)
+      id: upload-release-asset-macos
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./apps/cli/build/libs/cli-macos-x64.tar.gz
+        asset_name: cli-macos-x64.tar.gz
+        asset_content_type: application/tar.gz
+
 
   api-deploy:
     name: API Deploy
