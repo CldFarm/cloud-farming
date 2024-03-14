@@ -17,7 +17,7 @@ public class ConfigCommands extends AbstractShellComponent {
     public String configCreate(
             @ShellOption(value = "name", help = "Name of the config") String configName,
             @ShellOption(value = "desc", help = "Description of the config") String description,
-            @ShellOption(value = "fertilizer-type", help = "Fertilizer used in the Config") int fertilizerTypeID,
+            @ShellOption(value = "fertilizer-type", help = "Fertilizer used in the config") int fertilizerTypeID,
             @ShellOption(value = "water-per-hour", help = "Water use per hour on the config") BigDecimal waterPerHour
     ) {
         return configService.createConfig(configName, description, fertilizerTypeID, waterPerHour);
@@ -50,6 +50,17 @@ public class ConfigCommands extends AbstractShellComponent {
             return configService.deleteConfig(id);
         }
         return "";
+    }
+
+    @ShellMethod(key = "config edit", value = "Edit config")
+    public String configEdit(
+            @ShellOption(value = "id", help = "ID of the config") int configID,
+            @ShellOption(value = "name", help = "Name of the config", defaultValue = ShellOption.NULL) String configName,
+            @ShellOption(value = "desc", help = "Description of the config", defaultValue = ShellOption.NULL) String description,
+            @ShellOption(value = "fertilizer-type", help = "Fertilizer used in the config", defaultValue = ShellOption.NULL) Integer fertilizerTypeID,
+            @ShellOption(value = "water-per-hour", help = "Water use per hour on the config", defaultValue = ShellOption.NULL) BigDecimal waterPerHour
+    ) {
+        return configService.editConfig(configID, configName, description, fertilizerTypeID, waterPerHour);
     }
 
 }

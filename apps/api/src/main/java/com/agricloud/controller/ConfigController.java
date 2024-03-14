@@ -36,7 +36,7 @@ public class ConfigController {
 
     }
 
-    @PutMapping("edit")
+    @PostMapping("/edit")
     public GeneralResponse edit (@RequestBody ConfigModel config) {
         return configService.editConfig(config);
     }

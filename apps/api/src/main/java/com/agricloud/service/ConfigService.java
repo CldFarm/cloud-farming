@@ -86,6 +86,10 @@ public class ConfigService {
         try {
             Optional<ConfigModel> config2Optional = configRepository.findById(config.getConfigID());
             config2Optional.ifPresentOrElse(config2 -> {
+//                 if (accountID != config2.getAccountID()) {
+//                     response.setStatus("You are not permitted to edit this config");
+//                     return response;
+//                }
                 configRepository.save(config);
                 response.setStatus("Successfully edited config");
                 response.setBody(config);

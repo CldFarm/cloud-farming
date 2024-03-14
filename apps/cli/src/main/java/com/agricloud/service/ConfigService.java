@@ -59,4 +59,24 @@ public class ConfigService {
                         (body) -> "\n\nConfig Details:" + body.toString()
                 ).orElse("");
     }
+
+    public String editConfig(int configID, String configName, String description, Integer fertilizerTypeID, BigDecimal waterPerHour) {
+        ConfigResponse existingConfigResponse = configAPI.info(configID);
+        if (!existingConfigResponse.getStatus().equals("Found config")) {
+            return existingConfigResponse.getStatus();
+        }
+        Config existingConfig = existingConfigResponse.getBody();
+        if (configName != null) existingConfig.setConfigName(configName);
+        if (description != null) existingConfig.setDescription(description);
+        if (fertilizerTypeID != null) existingConfig.setFertilizerTypeID(fertilizerTypeID);
+        if (waterPerHour != null) existingConfig.setWaterPerHour(waterPerHour);
+
+
+        ConfigResponse response = configAPI.edit(existingConfig);
+
+        return response.getStatus() + Optional.ofNullable(response.getBody())
+                .map(
+                        (body) -> "\n\nConfig Details:" + body.toString()
+                ).orElse("");
+    }
 }
