@@ -59,7 +59,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: latest
-        release_name: cli latest
+        release_name: cli
         body: |
           Packaged CLI
         draft: false
