@@ -5,7 +5,7 @@
 <br>
   
 [![Commits](https://img.shields.io/github/commit-activity/w/CldFarm/cloud-farming)](https://github.com/CldFarm/cloud-farming/activity)
-[![CI/CD](https://github.com/CldFarm/cloud-farming/actions/workflows/prod-ci-cd.yml/badge.svg)](https://github.com/CldFarm/cloud-farming/actions/workflows/prod-ci-cd.yml)
+[![CI/CD](https://github.com/CldFarm/cloud-farming/actions/workflows/prod-ci-cd.yaml/badge.svg)](https://github.com/CldFarm/cloud-farming/actions/workflows/prod-ci-cd.yaml)
 
 </div>
 
