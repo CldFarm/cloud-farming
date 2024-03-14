@@ -49,6 +49,7 @@ jobs:
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
+      working-directory: ./apps/cli/build/libs
       with:
         name: releases
         path: |
