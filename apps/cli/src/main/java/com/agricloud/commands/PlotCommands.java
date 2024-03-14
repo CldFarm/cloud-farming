@@ -73,4 +73,12 @@ public class PlotCommands extends AbstractShellComponent {
         ? Availability.available()
         : Availability.unavailable("You are not logged in, use login command to login");
     }
+    @ShellMethod(key = "plot status", value = "test command")
+    public String getPlotStatus(
+        @ShellOption(value = "plot-id", help = "Plot ID") int plotID,
+        @ShellOption(value = "hours", help = "How many hours of plot data from current time") int pastHours
+    ) {
+        return plotService.plotStatus(plotID, pastHours);
+    } 
+
 }

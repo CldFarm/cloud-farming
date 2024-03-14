@@ -1,39 +1,44 @@
 package com.agricloud.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.agricloud.model.ConfigModel;
+import com.agricloud.service.ConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.agricloud.response.GeneralResponse;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
-@RequestMapping("/config")
+@RequestMapping("/configs")
 public class ConfigController {
-    
-    @GetMapping("/{name}/info")
-    public GeneralResponse info (@PathVariable(value = "name") String configName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
-    }
-    
-    @PutMapping("/create")
-    public GeneralResponse create (@RequestBody String entity) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+
+    @Autowired
+    ConfigService configService;
+
+    @GetMapping("/user/{user}")
+    public GeneralResponse getAll(@PathVariable(value = "user") Integer userID) {
+        return configService.getAllUserConfigs(userID);
     }
 
-    @DeleteMapping("/{name}") 
-    public GeneralResponse delete (@PathVariable(value = "name") String configName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @GetMapping("/{id}/info")
+    public GeneralResponse info (@PathVariable(value = "id") Integer configID) {
+        return configService.getConfigById(configID);
     }
 
-    @PutMapping("edit")
-    public GeneralResponse putMethodName(@RequestBody String entity) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @PostMapping("/create")
+    public GeneralResponse create (@RequestBody ConfigModel config) {
+        return configService.createConfig(config);
     }
-    
+
+    @DeleteMapping("/{id}/delete")
+    public GeneralResponse delete (@PathVariable(value = "id") Integer configID) {
+        return configService.deleteConfig(configID);
+
+    }
+
+    @PostMapping("/edit")
+    public GeneralResponse edit (@RequestBody ConfigModel config) {
+        return configService.editConfig(config);
+    }
+
 }

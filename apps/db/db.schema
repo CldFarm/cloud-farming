@@ -59,8 +59,8 @@ Table grow_zone {
   regionid integer
 }
 
-Table plotData {
-  plotDataID serial [primary key]
+Table plot_data {
+  plot_dataid serial [primary key]
   plotid integer
   growth_percent numeric
   sunlight numeric
