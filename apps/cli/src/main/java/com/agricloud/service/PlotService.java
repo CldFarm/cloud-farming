@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.agricloud.api.PlotAPI;
 import com.agricloud.entity.Plot;
+import com.agricloud.response.GeneralResponse;
 import com.agricloud.response.PlotResponse;
 
 @Service
@@ -35,7 +36,7 @@ public class PlotService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
-                (body) -> "\n\nPlot Details:" + body.toString()
+                (body) -> "\n\nPlot Details:\n" + body.toString()
             ).orElse("");
         }
 
@@ -46,7 +47,7 @@ public class PlotService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
-                (body) -> "\n\nPlot Details:" + body.toString()
+                (body) -> "\n\nPlot Details:\n" + body.toString()
             ).orElse("");
 
     }
@@ -58,7 +59,20 @@ public class PlotService {
 
         return response.getStatus() + Optional.ofNullable(response.getBody())
             .map(
-                (body) -> "\n\nPlot Details:" + body.toString()
+                (body) -> "\n\nPlot Details:\n" + body.toString()
+            ).orElse("");
+    
+    }
+
+    public String plotStatus(
+        Integer plotID,
+        Integer pastHours
+    ) {
+        GeneralResponse response = plotAPI.status(plotID, pastHours);
+
+        return response.getStatus() + Optional.ofNullable(response.getBody())
+            .map(
+                (body) -> "\n\nPlot Details:\n" + body.toString()
             ).orElse("");
     
     }
