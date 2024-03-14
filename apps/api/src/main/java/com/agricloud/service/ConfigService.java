@@ -1,12 +1,16 @@
 package com.agricloud.service;
 
 import com.agricloud.model.ConfigModel;
+import com.agricloud.model.PlotModel;
+import com.agricloud.model.PlotTypeModel;
 import com.agricloud.repository.ConfigRepository;
 import com.agricloud.repository.PlotRepository;
+import com.agricloud.repository.PlotTypeRepository;
 import com.agricloud.response.GeneralResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,6 +21,8 @@ public class ConfigService {
     ConfigRepository configRepository;
     @Autowired
     private PlotRepository plotRepository;
+    @Autowired
+    PlotTypeRepository plotTypeRepository;
 
     public GeneralResponse getAllUserConfigs(Integer accountID) {
         GeneralResponse response = new GeneralResponse();
@@ -64,13 +70,12 @@ public class ConfigService {
             Optional<ConfigModel> configOptional = configRepository.findById(configID);
             configOptional.ifPresentOrElse(config -> {
                 // TODO: Propagate changes to Plots using this plot to revert to defaultconfig
-                // TODO: Check that the config isn't in use as a defaultconfig
 
-                // Ensure config isn't in use.
-                if (!plotRepository.findPlotModelsByConfigID(configID).isEmpty()) {
-                    response.setStatus("Config in use");
+                if (!plotTypeRepository.findAllByDefaultConfigid(configID).isEmpty()) {
+                    response.setStatus("Config in use as a default config");
                 } else {
-                    configRepository.delete(config);
+                    // Update plots to their default config ID.
+                    deleteConfigAndUpdatePlots(config);
                     response.setStatus("Deleted config successfully");
                     response.setBody(config);
                 }
@@ -79,6 +84,20 @@ public class ConfigService {
             response.setStatus("Failed to delete config");
         }
         return response;
+    }
+
+    private void deleteConfigAndUpdatePlots(ConfigModel config) {
+        // Get all plots that use this config
+        List<PlotModel> plotModels = plotRepository.findPlotModelsByConfigID(config.getConfigID());
+        for (PlotModel plotModel : plotModels) {
+            // for each plot, get their default plot
+            PlotTypeModel plotTypeModel = plotTypeRepository.findById(plotModel.getPlotTypeID()).orElseThrow();
+
+            // update their configID, and resave it
+            plotModel.setConfigID(plotTypeModel.getDefaultConfigid());
+            plotRepository.save(plotModel);
+        }
+        configRepository.delete(config);
     }
 
     public GeneralResponse editConfig(ConfigModel config) {

@@ -53,8 +53,7 @@ public class ConfigAPI {
 
     public ConfigResponse delete (Integer configID) {
         try {
-            restTemplate.delete(new URI(apiConfig.getEndpoint() + "/configs/delete/" + configID));
-            return new ConfigResponse("Successfully deleted config", null);
+            return restTemplate.postForObject(new URI(apiConfig.getEndpoint() + "/configs/" + configID + "/delete"), null, ConfigResponse.class);
         } catch (RestClientException e) {
             return new ConfigResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
