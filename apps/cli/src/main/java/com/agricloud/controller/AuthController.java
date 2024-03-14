@@ -10,13 +10,16 @@ import java.security.Principal;
 @RestController
 public class AuthController {
 
+    private String loggedInUser;
 
-    @Autowired
-    private UserContext userContext;
+//    @Autowired
+//    private UserContext userContext;
+
     @GetMapping
     public String welcome(Principal principal){
-        userContext.setLoggedInUser(principal.getName());
-        return "Welcome " + userContext.getLoggedInUser();
+        loggedInUser = principal.getName();
+        return "Welcome " + loggedInUser;
+//        return "logged in, you can now close the window and return to the cli app";
     }
     @GetMapping("/user")
     public Principal user(Principal principal){
