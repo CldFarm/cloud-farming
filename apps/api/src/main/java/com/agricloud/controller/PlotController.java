@@ -19,9 +19,12 @@ public class PlotController {
         return plotService.info(plotID);
     }
 
-    @GetMapping("/{name}/logs")
-    public GeneralResponse logs (@PathVariable(value = "name") String plotName) {
-        return new GeneralResponse("NOT IMPLEMENTED", null);
+    @GetMapping("/{name}/status")
+    public GeneralResponse logs (
+        @PathVariable(value = "name") int plotID, 
+        @RequestParam(value = "hours", defaultValue = "1") int pastHours
+    ) {
+        return plotService.status(plotID, pastHours);
     }
     
     @PostMapping("/create")
