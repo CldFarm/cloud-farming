@@ -27,12 +27,12 @@ jobs:
 
   database-migration:
     name: "Liquibase update"
-    needs: prod-ci
+    needs: terraform-apply
     secrets: inherit
     uses: ./.github/workflows/liquibase-cd.yaml  
 
   app-deploy:
     name: "Deploy/Release API and CLI"
-    needs: prod-ci
+    needs: database-migration
     secrets: inherit
     uses: ./.github/workflows/app-cd.yaml  
