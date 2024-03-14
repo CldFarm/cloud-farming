@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.agricloud.config.ApiConfig;
 import com.agricloud.entity.Plot;
+import com.agricloud.response.GeneralResponse;
 import com.agricloud.response.PlotResponse;
 
 @Repository
@@ -47,6 +48,21 @@ public class PlotAPI {
             return new PlotResponse("Error occured while making request", null);
         } catch (URISyntaxException e) {
             return new PlotResponse("Error occured while making request", null);
+        }
+    }
+
+    public GeneralResponse status(Integer plotID, Integer pastHours) {
+        try {
+            return restTemplate.getForObject(
+                new URI(apiConfig.getEndpoint() + "/plot/" + plotID + "/status?hours=" + pastHours), 
+                GeneralResponse.class
+            );
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return new GeneralResponse("Error occured while making request", null);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return new GeneralResponse("Error occured while making request", null);
         }
     }
 
