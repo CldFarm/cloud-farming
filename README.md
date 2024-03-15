@@ -35,7 +35,11 @@ With AgriCloud, farmers can effortlessly perform a variety of bean-related activ
    - Go to Settings > Secrets and Variables.
    - Under Actions, set the secret variable "AWS_ASSUME_ROLE" to the ARN of your IAM role.
 
-4. Todo
+4. Setup Terraform
+   - Setup local AWS auth for account
+   - Navigate to bootstrap folder
+   - Run "terraform init" and then "terraform apply"
+   - Pipeline deploys the actual app
 
 ## Runing fully locally
 This project uses Java 21.
